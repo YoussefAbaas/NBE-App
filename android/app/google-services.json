@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "273518069369",
+    "project_id": "bankapp-7084e",
+    "storage_bucket": "bankapp-7084e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:273518069369:android:8ee66617d65433faec76a8",
+        "android_client_info": {
+          "package_name": "com.bankapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "273518069369-7ih5jqv4rd3qj303iflg3ltq7ri29vvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDkfPkBKEqjwLnNum9OuzxEuOgJzFHXtvo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "273518069369-7ih5jqv4rd3qj303iflg3ltq7ri29vvu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
