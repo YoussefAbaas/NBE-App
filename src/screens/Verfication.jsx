@@ -13,6 +13,15 @@ const Verification = props => {
     setismodalopen(!ismodalopen);
   };
   const displayname = useSelector(state => state.user.phone);
+  const [timer, settimer] = useState(30);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (timer > 0) settimer(timer => timer - 1);
+    }, 1000);
+    return () => {
+      clearInterval(interval);
+    };
+  }, [timer]);
   return (
     <View style={styles.container}>
       <SignUpHeader navigation={props.navigation} />
@@ -43,7 +52,7 @@ const Verification = props => {
             fontWeight: '700',
             color: 'black',
           }}>
-          Request new one in 00:30
+          Request new one in 00:{timer >= 10 ? timer : '0' + timer}
         </Text>
         <Text></Text>
       </View>
