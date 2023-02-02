@@ -41,6 +41,7 @@ const CustomTextInput = props => {
             value={props.value}
             secureTextEntry={props.secureTextEntry}
             style={{
+              fontFamily: 'Roboto-Medium',
               fontSize: 14,
               fontWeight: '700',
               color: Pressed ? 'black' : props.textcolor,
@@ -79,6 +80,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 15,
   },
   inputtext: {
+    fontFamily: 'Roboto-Medium',
     fontSize: 16,
     color: 'white',
     fontWeight: '500',

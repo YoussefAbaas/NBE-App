@@ -50,6 +50,7 @@ const History = props => {
     <View>
       <Text
         style={{
+          fontFamily: 'Roboto-Medium',
           fontSize: 18,
           fontWeight: '700',
           color: 'black',
@@ -95,6 +96,7 @@ const History = props => {
                     <View style={{marginLeft: 10}}>
                       <Text
                         style={{
+                          fontFamily: 'Roboto-Medium',
                           fontSize: 18,
                           fontWeight: '500',
                           color: 'black',
@@ -103,6 +105,7 @@ const History = props => {
                       </Text>
                       <Text
                         style={{
+                          fontFamily: 'Roboto-Medium',
                           fontSize: 16,
                           fontWeight: '400',
                           color: 'grey',
@@ -112,7 +115,12 @@ const History = props => {
                     </View>
                   </View>
                   <Text
-                    style={{fontSize: 18, fontWeight: '500', color: 'black'}}>
+                    style={{
+                      fontFamily: 'Roboto-Medium',
+                      fontSize: 18,
+                      fontWeight: '500',
+                      color: 'black',
+                    }}>
                     ${item.amount}
                   </Text>
                 </View>

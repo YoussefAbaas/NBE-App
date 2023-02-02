@@ -18,6 +18,7 @@ const HomeServiceIcon = props => {
       <Text
         style={{
           fontWeight: '700',
+          fontFamily: 'Roboto-Medium',
           fontSize: 14,
           color: 'black',
           textAlign: 'center',

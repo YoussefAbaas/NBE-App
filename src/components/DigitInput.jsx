@@ -8,7 +8,12 @@ const DigitInput = () => {
         <TextInput
           maxLength={1}
           placeholder="_"
-          style={{fontSize: 20, fontWeight: '400', paddingTop: 13}}
+          style={{
+            fontFamily: 'Roboto-Medium',
+            fontSize: 20,
+            fontWeight: '400',
+            paddingTop: 13,
+          }}
         />
       </View>
     </View>

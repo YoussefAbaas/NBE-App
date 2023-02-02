@@ -18,7 +18,13 @@ const SignUpSuccess = ({navigation}) => {
         style={styles.background}
         source={require('../assets/images/signupsuccessbg.png')}>
         <View style={styles.finishtext}>
-          <Text style={{color: 'white', fontSize: 30, fontWeight: '700'}}>
+          <Text
+            style={{
+              color: 'white',
+              fontFamily: 'Roboto-Medium',
+              fontSize: 30,
+              fontWeight: '700',
+            }}>
             Congratulations
           </Text>
           <Text style={{color: 'white', fontWeight: '700'}}>
@@ -68,6 +74,7 @@ const styles = StyleSheet.create({
   },
   buttontext: {
     color: '#007236',
+    fontFamily: 'Roboto-Medium',
     fontSize: 16,
     fontWeight: '600',
   },

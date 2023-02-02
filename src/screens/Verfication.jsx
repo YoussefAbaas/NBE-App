@@ -28,10 +28,21 @@ const Verification = props => {
             return <DigitInput key={i} />;
           })}
         </View>
-        <Text style={{fontSize: 16, fontWeight: '400'}}>
+        <Text
+          style={{
+            fontFamily: 'Roboto-Medium',
+            fontSize: 16,
+            fontWeight: '400',
+          }}>
           Didn't receive the code?
         </Text>
-        <Text style={{fontSize: 16, fontWeight: '700', color: 'black'}}>
+        <Text
+          style={{
+            fontFamily: 'Roboto-Medium',
+            fontSize: 16,
+            fontWeight: '700',
+            color: 'black',
+          }}>
           Request new one in 00:30
         </Text>
         <Text></Text>
@@ -73,11 +84,13 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   headingtext: {
+    fontFamily: 'Roboto-Medium',
     fontSize: 20,
     fontWeight: '700',
     color: 'black',
   },
   descriptiontext: {
+    fontFamily: 'Roboto-Medium',
     fontSize: 16,
     fontWeight: '400',
     color: '#B7B7B7',
@@ -92,11 +105,13 @@ const styles = StyleSheet.create({
   },
   buttontext: {
     color: 'white',
+    fontFamily: 'Roboto-Medium',
     fontSize: 16,
     fontWeight: '600',
   },
   submittext: {
     textAlign: 'center',
+    fontFamily: 'Roboto-Medium',
     fontSize: 14,
     fontWeight: '700',
   },

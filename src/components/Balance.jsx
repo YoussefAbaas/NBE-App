@@ -41,7 +41,7 @@ const Balance = () => {
         </View>
         <TouchableWithoutFeedback>
           <Text style={styles.balancetext}>
-            {balanceshown ? '2000' : 'Press here to show Balance'}
+            {balanceshown ? '$2,567,879' : 'Press here to show Balance'}
           </Text>
         </TouchableWithoutFeedback>
       </ImageBackground>
@@ -81,11 +81,13 @@ const styles = StyleSheet.create({
     marginBottom: 17,
   },
   balancetitle: {
-    fontSize: 14,
+    fontFamily: 'Roboto-Medium',
+    fontSize: 15,
     fontWeight: '500',
     color: 'white',
   },
   balancetext: {
+    fontFamily: 'Roboto-Medium',
     fontSize: 22,
     fontWeight: '700',
     color: 'white',

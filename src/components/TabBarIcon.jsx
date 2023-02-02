@@ -18,6 +18,7 @@ const TabBarIcon = props => {
       />
       <Text
         style={{
+          fontFamily: 'Roboto-Medium',
           fontSize: 14,
           fontWeight: '700',
           color: props.focused ? 'white' : '#B7B7B7',

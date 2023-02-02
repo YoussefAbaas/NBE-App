@@ -51,7 +51,9 @@ const styles = StyleSheet.create({
   },
   languagetext: {
     color: '#007236',
+    fontFamily: 'Roboto-Medium',
     fontSize: 14,
+    fontFamily: 'Roboto-Medium',
     width: 19,
     height: 21,
   },

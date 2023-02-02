@@ -16,6 +16,7 @@ const PasswordValidation = () => {
         <Image source={require('../assets/images/green-ellipse.png')} />
         <Text
           style={{
+            fontFamily: 'Roboto-Medium',
             fontSize: 16,
             fontWeight: '500',
             color: '#1C2437',
@@ -28,6 +29,7 @@ const PasswordValidation = () => {
         <Image source={require('../assets/images/green-ellipse.png')} />
         <Text
           style={{
+            fontFamily: 'Roboto-Medium',
             fontSize: 16,
             fontWeight: '500',
             color: '#1C2437',
@@ -41,6 +43,7 @@ const PasswordValidation = () => {
         <Image source={require('../assets/images/green-ellipse.png')} />
         <Text
           style={{
+            fontFamily: 'Roboto-Medium',
             fontSize: 16,
             fontWeight: '500',
             color: '#1C2437',
@@ -53,6 +56,7 @@ const PasswordValidation = () => {
         <Image source={require('../assets/images/grey-ellipse.png')} />
         <Text
           style={{
+            fontFamily: 'Roboto-Medium',
             fontSize: 16,
             fontWeight: '500',
             color: '#1C2437',
@@ -65,6 +69,7 @@ const PasswordValidation = () => {
         <Image source={require('../assets/images/grey-ellipse.png')} />
         <Text
           style={{
+            fontFamily: 'Roboto-Medium',
             fontSize: 16,
             fontWeight: '500',
             color: '#1C2437',

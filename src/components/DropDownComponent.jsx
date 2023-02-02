@@ -62,11 +62,13 @@ const styles = StyleSheet.create({
     top: 11,
     zIndex: 999,
     paddingHorizontal: 8,
+    fontFamily: 'Roboto-Medium',
     fontSize: 16,
     fontWeight: '500',
     color: 'black',
   },
   placeholderStyle: {
+    fontFamily: 'Roboto-Medium',
     fontSize: 14,
     marginTop: 5,
     marginLeft: -8,
@@ -74,6 +76,7 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   selectedTextStyle: {
+    fontFamily: 'Roboto-Medium',
     fontSize: 14,
     marginTop: 5,
     marginLeft: 5,
@@ -82,6 +85,7 @@ const styles = StyleSheet.create({
   },
   inputSearchStyle: {
     height: 40,
+    fontFamily: 'Roboto-Medium',
     fontSize: 16,
   },
 });

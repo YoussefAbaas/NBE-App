@@ -30,10 +30,22 @@ const SideBarUserCard = props => {
           style={{width: 50, height: 50, borderRadius: 12}}
         />
         <View>
-          <Text style={{fontSize: 18, fontWeight: '500', color: 'black'}}>
+          <Text
+            style={{
+              fontFamily: 'Roboto-Medium',
+              fontSize: 18,
+              fontWeight: '500',
+              color: 'black',
+            }}>
             {displayname + '@nbe.com' || props.name}
           </Text>
-          <Text style={{fontSize: 14, fontWeight: '400', color: 'grey'}}>
+          <Text
+            style={{
+              fontFamily: 'Roboto-Medium',
+              fontSize: 14,
+              fontWeight: '400',
+              color: 'grey',
+            }}>
             {displayname || props.number}
           </Text>
         </View>

@@ -1,4 +1,10 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  KeyboardAvoidingView,
+  SafeAreaView,
+} from 'react-native';
 import React from 'react';
 import 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
@@ -13,13 +19,13 @@ const App = () => {
     'AsyncStorage has been extracted from react-native core and will be removed in a future release',
   ]);
   return (
-    <Provider store={store}>
-      <NavigationContainer>
-        <KeyboardDismiss>
+    <KeyboardDismiss>
+      <Provider store={store}>
+        <NavigationContainer>
           <AuthStack />
-        </KeyboardDismiss>
-      </NavigationContainer>
-    </Provider>
+        </NavigationContainer>
+      </Provider>
+    </KeyboardDismiss>
   );
 };
 

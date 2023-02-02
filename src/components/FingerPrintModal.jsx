@@ -55,11 +55,13 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   titletext: {
+    fontFamily: 'Roboto-Medium',
     fontSize: 18,
     fontWeight: '700',
     color: 'black',
   },
   descriptiontext: {
+    fontFamily: 'Roboto-Medium',
     fontSize: 16,
     fontWeight: '500',
     color: 'black',
@@ -68,6 +70,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 10,
     bottom: 10,
+    fontFamily: 'Roboto-Medium',
     fontSize: 16,
     color: '#007236',
     textAlign: 'right',

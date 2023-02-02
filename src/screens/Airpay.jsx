@@ -39,6 +39,7 @@ const Airpay = ({navigation}) => {
         <View>
           <Text
             style={{
+              fontFamily: 'Roboto-Medium',
               fontSize: 20,
               fontWeight: '700',
               color: 'black',
@@ -82,6 +83,7 @@ const Airpay = ({navigation}) => {
             return received == '' ? (
               <Text
                 style={{
+                  fontFamily: 'Roboto-Medium',
                   fontSize: 20,
                   fontWeight: '500',
                   color: '#007236C4',
@@ -150,6 +152,7 @@ const styles = StyleSheet.create({
   },
   buttontext: {
     color: 'white',
+    fontFamily: 'Roboto-Medium',
     fontSize: 16,
     fontWeight: '600',
   },

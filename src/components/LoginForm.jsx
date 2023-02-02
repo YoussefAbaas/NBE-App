@@ -97,6 +97,7 @@ const styles = StyleSheet.create({
     paddingTop: 150,
   },
   formheader: {
+    fontFamily: 'Roboto-Medium',
     fontSize: 40,
     fontWeight: 'bold',
     lineHeight: 47,
@@ -110,6 +111,7 @@ const styles = StyleSheet.create({
     borderRadius: 6,
   },
   propstext: {
+    fontFamily: 'Roboto-Medium',
     fontSize: 14,
     color: 'white',
   },
@@ -132,6 +134,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
   },
   loginButtontext: {
+    fontFamily: 'Roboto-Medium',
     fontSize: 16,
     color: 'white',
   },
@@ -152,6 +155,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
   signuptext: {
+    fontFamily: 'Roboto-Medium',
     fontSize: 14,
     color: 'white',
     textAlign: 'center',

@@ -32,12 +32,16 @@ const styles = StyleSheet.create({
     color: '#F49322',
   },
   links: {
+    fontFamily: 'Roboto-Medium',
+    fontFamily: 'Roboto-Medium',
     fontSize: 14,
     lineHeight: 14,
     fontWeight: '700',
     textAlign: 'center',
   },
   Rightstext: {
+    fontFamily: 'Roboto-Medium',
+    fontFamily: 'Roboto-Medium',
     fontSize: 12,
     lineHeight: 14,
     fontWeight: '700',

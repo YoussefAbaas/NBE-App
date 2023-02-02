@@ -18,6 +18,7 @@ const MissionCompletedModal = props => {
           <Image source={require('../assets/images/missioncompleted.png')} />
           <Text
             style={{
+              fontFamily: 'Roboto-Medium',
               fontSize: 20,
               fontWeight: '700',
               color: 'black',
@@ -27,6 +28,7 @@ const MissionCompletedModal = props => {
           </Text>
           <Text
             style={{
+              fontFamily: 'Roboto-Medium',
               fontSize: 16,
               fontWeight: '400',
               textAlign: 'center',
@@ -79,11 +81,13 @@ const styles = StyleSheet.create({
   },
   buttontext: {
     color: 'white',
+    fontFamily: 'Roboto-Medium',
     fontSize: 16,
     fontWeight: '600',
   },
   submittext: {
     textAlign: 'center',
+    fontFamily: 'Roboto-Medium',
     fontSize: 14,
     fontWeight: '700',
   },

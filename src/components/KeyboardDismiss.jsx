@@ -3,19 +3,21 @@ import {
   Keyboard,
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
+  Pressable,
 } from 'react-native';
 import React from 'react';
 
 const KeyboardDismiss = ({children}) => {
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <KeyboardAvoidingView
-        style={{flex: 1}}
-        behavior="height"
-        keyboardVerticalOffset={-200}>
+    <KeyboardAvoidingView
+      style={{flex: 1}}
+      behavior="height"
+      keyboardVerticalOffset={-200}>
+      {children}
+      {/*<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         {children}
-      </KeyboardAvoidingView>
-    </TouchableWithoutFeedback>
+  </TouchableWithoutFeedback>*/}
+    </KeyboardAvoidingView>
   );
 };
 

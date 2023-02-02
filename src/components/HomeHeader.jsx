@@ -20,7 +20,12 @@ const HomeHeader = props => {
           source={require('../assets/images/user.png')}
           style={{width: 40, height: 40}}
         />
-        <Text style={{fontSize: 14, fontWeight: '700'}}>
+        <Text
+          style={{
+            fontFamily: 'Roboto-Medium',
+            fontSize: 14,
+            fontWeight: '700',
+          }}>
           Good morning {'\n'}{' '}
           <Text style={{color: 'black'}}>
             {displayname + '@nbe.com' || props.name}
