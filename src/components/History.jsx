@@ -7,8 +7,31 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 import React, {useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {useEffect} from 'react';
+import {fetchusers} from '../redux/beneficiersSlice';
 
 const History = props => {
+  const users = useSelector(state => state.beneficiers.data);
+  let transactions = [];
+  users.forEach(user => {
+    transactions = transactions.concat(user.transactions);
+  });
+  console.log('transactions are', users);
+  transactions = transactions?.map(transaction => {
+    return {
+      name: transaction.username,
+      date: transaction.date,
+      amount: transaction.amount,
+      id: transaction.id,
+      image: users.find(user => {
+        return user.name == transaction.username;
+      }).image,
+    };
+  });
+
+  const phone = useSelector(state => state.user.phone);
+  const dispatch = useDispatch();
   const [HistoryUsers, setHistoryUsers] = useState([
     {
       name: 'Youssef',
@@ -46,6 +69,10 @@ const History = props => {
       id: 5,
     },
   ]);
+  useEffect(() => {
+    dispatch(fetchusers(phone));
+  }, []);
+
   return (
     <View>
       <Text
@@ -61,7 +88,7 @@ const History = props => {
       </Text>
       <View style={{height: props.height}}>
         <FlatList
-          data={HistoryUsers}
+          data={transactions}
           keyExtractor={item => {
             return item.id;
           }}

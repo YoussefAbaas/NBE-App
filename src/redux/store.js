@@ -4,15 +4,17 @@ import languageReducer from './languageSlice';
 import {persistReducer, persistStore} from 'redux-persist';
 import thunk from 'redux-thunk';
 import {AsyncStorage} from 'react-native';
+import beneficiersReducer from './beneficiersSlice';
 
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  blacklist: ['darkmode'],
+  blacklist: ['beneficiers'],
 };
 const combinedreducer = combineReducers({
   user: userReducer,
   language: languageReducer,
+  beneficiers: beneficiersReducer,
 });
 const persistedReducer = persistReducer(persistConfig, combinedreducer);
 

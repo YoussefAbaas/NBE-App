@@ -76,7 +76,7 @@ const Verification = props => {
         toggleModal={toggleModal}
         username={props.route.params.name}
         text={
-          prevscreen == 'TransferPage'
+          prevscreen == 'TransferOverview'
             ? `Transfer to ${props.route.params.name} was successful`
             : `${props.route.params.name} was successfully added to your beneficiares list`
         }

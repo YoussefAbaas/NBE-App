@@ -53,7 +53,6 @@ const styles = StyleSheet.create({
     color: '#007236',
     fontFamily: 'Roboto-Medium',
     fontSize: 14,
-    fontFamily: 'Roboto-Medium',
     width: 19,
     height: 21,
   },

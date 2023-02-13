@@ -47,7 +47,6 @@ const CustomDrawer = props => {
             <DrawerIcon image={require('../assets/images/dark.png')} />
             <Text
               style={{
-                fontFamily: 'Roboto-Medium',
                 marginLeft: 8,
                 fontFamily: 'Roboto-Medium',
                 fontSize: 16,
@@ -81,7 +80,6 @@ const CustomDrawer = props => {
             <Text
               style={{
                 marginLeft: 7,
-                fontFamily: 'Roboto-Medium',
                 fontFamily: 'Roboto-Medium',
                 fontSize: 16,
                 fontWeight: '500',

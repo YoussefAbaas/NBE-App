@@ -2,6 +2,7 @@ import {createSlice} from '@reduxjs/toolkit';
 
 const initialState = {
   phone: null,
+  accountnum: null,
 };
 
 export const userSlice = createSlice({
@@ -13,7 +14,8 @@ export const userSlice = createSlice({
       // doesn't actually mutate the state because it uses the Immer library,
       // which detects changes to a "draft state" and produces a brand new
       // immutable state based off those changes
-      state.phone = action.payload;
+      state.phone = action.payload.phone;
+      state.accountnum = action.payload.accountnum;
       console.log('user is', state.phone);
     },
     logout: state => {
@@ -22,6 +24,7 @@ export const userSlice = createSlice({
       // which detects changes to a "draft state" and produces a brand new
       // immutable state based off those changes
       state.phone = null;
+      state.accountnum = null;
     },
   },
 });

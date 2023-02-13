@@ -60,7 +60,7 @@ const SetPassword = props => {
             onPress={() => {
               const result = registerPhoneNumber(mobile, password);
               if (result) {
-                dispatch(login(mobile));
+                dispatch(login({phone: mobile}));
                 props.navigation.navigate('SignupSuccess');
               }
             }}>

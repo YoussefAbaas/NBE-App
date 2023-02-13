@@ -57,9 +57,9 @@ const LoginForm = props => {
       <View style={styles.loginbuttons}>
         <TouchableWithoutFeedback
           onPress={async () => {
-            const result = await signIn(email, password);
+            const [result, data] = await signIn(email, password);
             if (result) {
-              dispatch(login(email));
+              dispatch(login(data));
               props.navigation.navigate('Home');
             }
           }}>

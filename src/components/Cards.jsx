@@ -12,7 +12,6 @@ const Cards = () => {
       <Text
         style={{
           fontFamily: 'Roboto-Medium',
-          fontFamily: 'Roboto-Medium',
           fontSize: 20,
           fontWeight: '700',
           color: 'black',

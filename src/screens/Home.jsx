@@ -6,7 +6,7 @@ import {
   View,
   TouchableOpacity,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import HomeHeader from '../components/HomeHeader';
 import Balance from '../components/Balance';
 import HomeServiceIcon from '../components/HomeServiceIcon';
@@ -18,6 +18,7 @@ const Home = props => {
   const [cardsshown, setcardsshown] = useState(false);
   const showcards = () => {
     setcardsshown(true);
+    console.log('shown');
   };
   return (
     <View>

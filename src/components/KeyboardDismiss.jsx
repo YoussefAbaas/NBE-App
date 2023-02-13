@@ -1,10 +1,4 @@
-import {
-  StyleSheet,
-  Keyboard,
-  KeyboardAvoidingView,
-  TouchableWithoutFeedback,
-  Pressable,
-} from 'react-native';
+import {StyleSheet, KeyboardAvoidingView} from 'react-native';
 import React from 'react';
 
 const KeyboardDismiss = ({children}) => {

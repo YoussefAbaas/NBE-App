@@ -41,14 +41,14 @@ function BottomTabNavigator(props) {
         }}
       />
       <Tab.Screen
-        name="Transfer"
-        component={TransferStack}
+        name="TransferOverview"
+        component={Transfer}
         options={props => {
           return {
             tabBarIcon: ({focused}) => {
               return (
                 <TabBarIcon
-                  name={props.route.name}
+                  name={'Transfer'}
                   image={require('../assets/images/transfer.png')}
                   focused={focused}
                 />

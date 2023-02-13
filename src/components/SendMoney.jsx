@@ -26,52 +26,50 @@ const SendMoney = () => {
         }}>
         Send Money
       </Text>
-      <View>
-        <FlatList
-          data={sendmoneyUsers}
-          keyExtractor={item => {
-            return item.name;
-          }}
-          horizontal={true}
-          showsHorizontalScrollIndicator
-          contentContainerStyle={{flexGrow: 1}}
-          renderItem={({item, index}) => {
-            return (
-              <View
+      <FlatList
+        data={sendmoneyUsers}
+        keyExtractor={item => {
+          return item.name;
+        }}
+        horizontal={true}
+        showsHorizontalScrollIndicator={false}
+        renderItem={({item, index}) => {
+          return (
+            <View
+              style={{
+                backgroundColor: 'white',
+                borderRadius: 10,
+                width: 70,
+                height: 85,
+                alignItems: 'center',
+                justifyContent: 'center',
+                flex: 1,
+                marginLeft: index === 0 ? 20 : 10,
+              }}>
+              <Image
+                source={item.image}
                 style={{
-                  backgroundColor: 'white',
+                  width: 40,
+                  height: 40,
+                  alignSelf: 'center',
+                  resizeMode: 'cover',
                   borderRadius: 10,
-                  width: 70,
-                  height: 85,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  marginLeft: index === 0 ? 20 : 10,
+                }}
+              />
+              <Text
+                style={{
+                  textAlign: 'left',
+                  fontFamily: 'Roboto-Medium',
+                  fontSize: 14,
+                  fontWeight: '700',
+                  color: 'black',
                 }}>
-                <Image
-                  source={item.image}
-                  style={{
-                    width: 40,
-                    height: 40,
-                    alignSelf: 'center',
-                    resizeMode: 'cover',
-                    borderRadius: 10,
-                  }}
-                />
-                <Text
-                  style={{
-                    textAlign: 'left',
-                    fontFamily: 'Roboto-Medium',
-                    fontSize: 14,
-                    fontWeight: '700',
-                    color: 'black',
-                  }}>
-                  {item.name}
-                </Text>
-              </View>
-            );
-          }}
-        />
-      </View>
+                {item.name}
+              </Text>
+            </View>
+          );
+        }}
+      />
     </View>
   );
 };

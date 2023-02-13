@@ -1,10 +1,4 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  KeyboardAvoidingView,
-  SafeAreaView,
-} from 'react-native';
+import {StyleSheet} from 'react-native';
 import React from 'react';
 import 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
@@ -17,6 +11,9 @@ import KeyboardDismiss from './src/components/KeyboardDismiss';
 const App = () => {
   LogBox.ignoreLogs([
     'AsyncStorage has been extracted from react-native core and will be removed in a future release',
+  ]);
+  LogBox.ignoreLogs([
+    'VirtualizedLists should never be nested inside plain ScrollViews with the same orientation because it can break windowing and other functionality',
   ]);
   return (
     <KeyboardDismiss>
