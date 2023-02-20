@@ -1,5 +1,6 @@
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
+import {acc} from 'react-native-reanimated';
 
 async function registerPhoneNumber(phoneNumber, password) {
   try {
@@ -7,17 +8,19 @@ async function registerPhoneNumber(phoneNumber, password) {
       phoneNumber + '@nbe.com',
       password,
     );
+    var accountnum = Math.floor(Math.random() * 1e16);
     firestore()
       .collection('Users')
       .doc(userCredential.user.uid)
-      .set({phone: phoneNumber, accountnum: Math.floor(Math.random() * 1e16)})
+      .set({phone: phoneNumber, accountnum: accountnum})
       .then(() => {
         console.log('added');
       });
   } catch (error) {
     alert('error in registration');
-    console.log(error);
+    //console.log(error);
   }
+  return accountnum;
 }
 async function signIn(phoneNumber, password) {
   let result = false;

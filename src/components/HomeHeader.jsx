@@ -4,6 +4,7 @@ import {useSelector, useDispatch} from 'react-redux';
 
 const HomeHeader = props => {
   const displayname = useSelector(state => state.user.phone);
+
   return (
     <View style={styles.header}>
       <View style={styles.headerleft}>

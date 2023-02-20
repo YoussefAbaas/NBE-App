@@ -1,12 +1,13 @@
-import {StyleSheet} from 'react-native';
+import {AppState, StyleSheet, AsyncStorage} from 'react-native';
 import React from 'react';
 import 'react-native-gesture-handler';
-import {NavigationContainer} from '@react-navigation/native';
+import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import AuthStack from './src/routes/AuthStack';
 import {LogBox} from 'react-native';
 import {store} from './src/redux/store';
-import {Provider} from 'react-redux';
+import {Provider, useSelector} from 'react-redux';
 import KeyboardDismiss from './src/components/KeyboardDismiss';
+import Dummy from './src/screens/Dummy';
 
 const App = () => {
   LogBox.ignoreLogs([
@@ -16,14 +17,15 @@ const App = () => {
     'VirtualizedLists should never be nested inside plain ScrollViews with the same orientation because it can break windowing and other functionality',
   ]);
   return (
-    <KeyboardDismiss>
-      <Provider store={store}>
+    <Provider store={store}>
+      <KeyboardDismiss>
         <NavigationContainer>
           <AuthStack />
         </NavigationContainer>
-      </Provider>
-    </KeyboardDismiss>
+      </KeyboardDismiss>
+    </Provider>
   );
+  /*return <Dummy />;*/
 };
 
 export default App;

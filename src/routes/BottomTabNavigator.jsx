@@ -8,6 +8,8 @@ import Home from '../screens/Home';
 import Transfer from '../screens/Transfer';
 import BeneficiaresStack from './BeneficiaresStack';
 import TransferStack from './TransferStack';
+import Airpay from '../screens/Airpay';
+import Atms from '../screens/Atms';
 
 const Tab = createBottomTabNavigator();
 
@@ -76,7 +78,7 @@ function BottomTabNavigator(props) {
       />
       <Tab.Screen
         name="Atms"
-        component={Dummy}
+        component={Atms}
         options={props => {
           return {
             tabBarIcon: ({focused}) => {

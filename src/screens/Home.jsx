@@ -13,13 +13,18 @@ import HomeServiceIcon from '../components/HomeServiceIcon';
 import SendMoney from '../components/SendMoney';
 import History from '../components/History';
 import Cards from '../components/Cards';
+import {useIsFocused} from '@react-navigation/native';
+import {useEffect} from 'react';
 
 const Home = props => {
+  const focused = useIsFocused();
   const [cardsshown, setcardsshown] = useState(false);
   const showcards = () => {
     setcardsshown(true);
-    console.log('shown');
   };
+  useEffect(() => {
+    if (focused) setcardsshown(false);
+  }, [focused]);
   return (
     <View>
       <HomeHeader navigation={props.navigation} name={'youssef'} />

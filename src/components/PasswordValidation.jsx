@@ -1,7 +1,8 @@
 import {StyleSheet, Text, View, Image} from 'react-native';
 import React from 'react';
 
-const PasswordValidation = () => {
+const PasswordValidation = props => {
+  const passwordCheck = props.passwordCheck;
   return (
     <View
       style={{
@@ -13,7 +14,13 @@ const PasswordValidation = () => {
       }}>
       <View
         style={{flexDirection: 'row', alignItems: 'center', marginRight: 45}}>
-        <Image source={require('../assets/images/green-ellipse.png')} />
+        <Image
+          source={
+            passwordCheck.lowercase
+              ? require('../assets/images/green-ellipse.png')
+              : require('../assets/images/grey-ellipse.png')
+          }
+        />
         <Text
           style={{
             fontFamily: 'Roboto-Medium',
@@ -26,7 +33,13 @@ const PasswordValidation = () => {
         </Text>
       </View>
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <Image source={require('../assets/images/green-ellipse.png')} />
+        <Image
+          source={
+            passwordCheck.uppercase
+              ? require('../assets/images/green-ellipse.png')
+              : require('../assets/images/grey-ellipse.png')
+          }
+        />
         <Text
           style={{
             fontFamily: 'Roboto-Medium',
@@ -40,7 +53,13 @@ const PasswordValidation = () => {
       </View>
       <View
         style={{flexDirection: 'row', alignItems: 'center', marginRight: 8}}>
-        <Image source={require('../assets/images/green-ellipse.png')} />
+        <Image
+          source={
+            passwordCheck.length
+              ? require('../assets/images/green-ellipse.png')
+              : require('../assets/images/grey-ellipse.png')
+          }
+        />
         <Text
           style={{
             fontFamily: 'Roboto-Medium',
@@ -53,7 +72,13 @@ const PasswordValidation = () => {
         </Text>
       </View>
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <Image source={require('../assets/images/grey-ellipse.png')} />
+        <Image
+          source={
+            passwordCheck.number
+              ? require('../assets/images/green-ellipse.png')
+              : require('../assets/images/grey-ellipse.png')
+          }
+        />
         <Text
           style={{
             fontFamily: 'Roboto-Medium',
@@ -66,7 +91,13 @@ const PasswordValidation = () => {
         </Text>
       </View>
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <Image source={require('../assets/images/grey-ellipse.png')} />
+        <Image
+          source={
+            passwordCheck.specialcharacter
+              ? require('../assets/images/green-ellipse.png')
+              : require('../assets/images/grey-ellipse.png')
+          }
+        />
         <Text
           style={{
             fontFamily: 'Roboto-Medium',

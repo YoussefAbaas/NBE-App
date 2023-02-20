@@ -2,10 +2,12 @@ import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import React, {useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {change} from '../redux/languageSlice';
+import {useNavigation} from '@react-navigation/native';
 
 const MainHeader = props => {
   const dispatch = useDispatch();
   const language = useSelector(state => state.language.AR);
+  const navigation = useNavigation();
   const languageRestart = () => {
     dispatch(change());
   };

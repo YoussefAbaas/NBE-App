@@ -17,7 +17,6 @@ const History = props => {
   users.forEach(user => {
     transactions = transactions.concat(user.transactions);
   });
-  console.log('transactions are', users);
   transactions = transactions?.map(transaction => {
     return {
       name: transaction.username,

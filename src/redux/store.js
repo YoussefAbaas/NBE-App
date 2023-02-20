@@ -5,6 +5,7 @@ import {persistReducer, persistStore} from 'redux-persist';
 import thunk from 'redux-thunk';
 import {AsyncStorage} from 'react-native';
 import beneficiersReducer from './beneficiersSlice';
+import navigationReducer from './navigationSlice';
 
 const persistConfig = {
   key: 'root',
@@ -15,6 +16,7 @@ const combinedreducer = combineReducers({
   user: userReducer,
   language: languageReducer,
   beneficiers: beneficiersReducer,
+  navigation: navigationReducer,
 });
 const persistedReducer = persistReducer(persistConfig, combinedreducer);
 

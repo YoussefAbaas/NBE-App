@@ -7,7 +7,7 @@ const fetchBeneficiers = createAsyncThunk(
   async phone => {
     const data = await getbeneficiers();
     const filtered_data = data.filter(user => {
-      return user.relateduserphone == phone;
+      return user.relateduserphone == phone && phone != null;
     });
     return filtered_data;
   },
@@ -40,8 +40,6 @@ export const beneficiersSlice = createSlice({
       // Add user to the state array
       //console.log('action payload is', action.payload);
       state.data = action.payload;
-      console.log(action.payload);
-      console.log('dispatched');
     });
   },
 });

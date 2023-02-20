@@ -5,11 +5,13 @@ import {
   Image,
   TextInput,
   TouchableWithoutFeedback,
+  Pressable,
 } from 'react-native';
 import React, {useState} from 'react';
 
 const CustomTextInput = props => {
   const [Pressed, setPressed] = useState(false);
+  const [showPassword, setshowPassword] = useState(false);
   return (
     <TouchableWithoutFeedback>
       <View
@@ -39,7 +41,7 @@ const CustomTextInput = props => {
           </Text>
           <TextInput
             value={props.value}
-            secureTextEntry={props.secureTextEntry}
+            secureTextEntry={props.secureTextEntry && !showPassword}
             style={{
               fontFamily: 'Roboto-Medium',
               fontSize: 14,
@@ -52,6 +54,21 @@ const CustomTextInput = props => {
               props.settext(text);
             }}></TextInput>
         </View>
+        {props.text.toLowerCase().includes('password') && (
+          <Pressable
+            style={styles.passwordicon}
+            onPress={() => {
+              setshowPassword(!showPassword);
+            }}>
+            <Image
+              source={
+                showPassword
+                  ? require('../assets/images/hidepassword.png')
+                  : require('../assets/images/showpassword.png')
+              }
+            />
+          </Pressable>
+        )}
       </View>
     </TouchableWithoutFeedback>
   );
@@ -84,5 +101,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: 'white',
     fontWeight: '500',
+  },
+  passwordicon: {
+    position: 'absolute',
+    right: 12,
+    bottom: 12,
   },
 });

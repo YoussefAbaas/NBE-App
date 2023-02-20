@@ -16,9 +16,11 @@ import DrawerIcon from './DrawerIcon';
 import SideBarUserCard from './SideBarUserCard';
 import {useSelector, useDispatch} from 'react-redux';
 import {logout} from '../redux/userSlice';
+import {useNavigation} from '@react-navigation/native';
 
 const CustomDrawer = props => {
   const [enabled, setenabled] = useState(false);
+  const navigation = useNavigation();
   const toggleswitch = () => {
     setenabled(!enabled);
   };

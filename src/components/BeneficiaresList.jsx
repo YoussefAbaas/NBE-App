@@ -23,7 +23,7 @@ const BeneficiaresList = props => {
             onPress={() =>
               props.navigation.navigate('BeneficiaresHistory', item)
             }>
-            <BeneficiareCard {...item} />
+            <BeneficiareCard {...item} navigation={props.navigation} />
           </TouchableOpacity>
         );
       }}
@@ -63,7 +63,7 @@ const BeneficiaresList = props => {
             />
             <Text
               style={{
-                textAlign: 'left',
+                textAlign: 'center',
                 fontFamily: 'Roboto-Medium',
                 fontSize: 15,
                 fontWeight: '500',

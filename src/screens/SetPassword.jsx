@@ -20,6 +20,13 @@ const SetPassword = props => {
   const [confirmpassword, setconfirmpassword] = useState('');
   const mobile = props.route.params.mobilenum;
   const dispatch = useDispatch();
+  const passwordCheck = {
+    lowercase: /[a-z]/.test(password),
+    uppercase: /[A-Z]/.test(password),
+    length: password.length >= 8,
+    number: /[0-9]/.test(password),
+    specialcharacter: /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test(password),
+  };
   return (
     <View style={styles.container}>
       <SignUpHeader navigation={props.navigation} />
@@ -52,17 +59,22 @@ const SetPassword = props => {
         secureTextEntry
       />
 
-      <PasswordValidation />
+      <PasswordValidation passwordCheck={passwordCheck} />
 
       <View style={styles.submit}>
         <View style={styles.button}>
           <TouchableOpacity
-            onPress={() => {
-              const result = registerPhoneNumber(mobile, password);
-              if (result) {
-                dispatch(login({phone: mobile}));
-                props.navigation.navigate('SignupSuccess');
-              }
+            onPress={async () => {
+              if (
+                Object.values(passwordCheck).every(field => field === true) &&
+                password == confirmpassword
+              ) {
+                const accountnum = await registerPhoneNumber(mobile, password);
+                if (accountnum) {
+                  dispatch(login({phone: mobile, accountnum: accountnum}));
+                  props.navigation.navigate('SignupSuccess');
+                }
+              } else alert('Error in password');
             }}>
             <Text style={styles.buttontext}>Submit</Text>
           </TouchableOpacity>
