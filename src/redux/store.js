@@ -3,7 +3,7 @@ import userReducer from './userSlice';
 import languageReducer from './languageSlice';
 import {persistReducer, persistStore} from 'redux-persist';
 import thunk from 'redux-thunk';
-import {AsyncStorage} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import beneficiersReducer from './beneficiersSlice';
 import navigationReducer from './navigationSlice';
 

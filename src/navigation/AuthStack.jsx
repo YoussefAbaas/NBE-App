@@ -13,7 +13,6 @@ const Stack = createStackNavigator();
 function AuthStack() {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
-      <Stack.Screen name="Splash" component={SplashScreen} />
       <Stack.Screen name="Login" component={Main} />
       <Stack.Screen name="Signup" component={MobileEntry} />
       <Stack.Screen name="Verification" component={Verification} />

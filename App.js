@@ -1,30 +1,33 @@
-import {AppState, StyleSheet, AsyncStorage} from 'react-native';
+import {StyleSheet} from 'react-native';
+
 import React from 'react';
 import 'react-native-gesture-handler';
-import {NavigationContainer, useNavigation} from '@react-navigation/native';
-import AuthStack from './src/routes/AuthStack';
+import {NavigationContainer} from '@react-navigation/native';
+import AuthStack from './src/navigation/AuthStack';
 import {LogBox} from 'react-native';
-import {store} from './src/redux/store';
+
 import {Provider, useSelector} from 'react-redux';
 import KeyboardDismiss from './src/components/KeyboardDismiss';
-import Dummy from './src/screens/Dummy';
+import {useState} from 'react';
+
+import SplashScreen from './src/screens/SplashScreen';
 
 const App = () => {
-  LogBox.ignoreLogs([
-    'AsyncStorage has been extracted from react-native core and will be removed in a future release',
-  ]);
-  LogBox.ignoreLogs([
-    'VirtualizedLists should never be nested inside plain ScrollViews with the same orientation because it can break windowing and other functionality',
-  ]);
+  const initialState = useSelector(state => state.navigation.navigationState);
+  const [splashtimePassed, setsplashtimePassed] = useState(false);
+
+  setTimeout(() => {
+    setsplashtimePassed(true);
+  }, 1500);
+  if (!splashtimePassed) return <SplashScreen />;
   return (
-    <Provider store={store}>
-      <KeyboardDismiss>
-        <NavigationContainer>
-          <AuthStack />
-        </NavigationContainer>
-      </KeyboardDismiss>
-    </Provider>
+    <KeyboardDismiss>
+      <NavigationContainer initialState={initialState}>
+        <AuthStack />
+      </NavigationContainer>
+    </KeyboardDismiss>
   );
+
   /*return <Dummy />;*/
 };
 
