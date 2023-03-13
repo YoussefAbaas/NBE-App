@@ -1,5 +1,9 @@
 import {StyleSheet, Text, View, Image, FlatList} from 'react-native';
+import MyAppText from './MyAppText';
+
 import React, {useState} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
+import i18n from '../translation/I18Config';
 
 const SendMoney = () => {
   const [sendmoneyUsers, setsendmoneyUsers] = useState([
@@ -13,9 +17,11 @@ const SendMoney = () => {
     {name: 'amir1', image: require('../assets/images/user1.png')},
     {name: 'seham1', image: require('../assets/images/user2.png')},
   ]);
+  const isarabic = useSelector(state => state.language.AR);
+  i18n.locale = useSelector(state => state.language.locale);
   return (
     <View>
-      <Text
+      <MyAppText
         style={{
           fontFamily: 'Roboto-Medium',
           fontSize: 18,
@@ -24,8 +30,8 @@ const SendMoney = () => {
           marginHorizontal: 20,
           marginTop: 20,
         }}>
-        Send Money
-      </Text>
+        {i18n.t('SendMoney')}
+      </MyAppText>
       <FlatList
         data={sendmoneyUsers}
         keyExtractor={item => {
@@ -56,7 +62,7 @@ const SendMoney = () => {
                   borderRadius: 10,
                 }}
               />
-              <Text
+              <MyAppText
                 style={{
                   textAlign: 'left',
                   fontFamily: 'Roboto-Medium',
@@ -65,7 +71,7 @@ const SendMoney = () => {
                   color: 'black',
                 }}>
                 {item.name}
-              </Text>
+              </MyAppText>
             </View>
           );
         }}

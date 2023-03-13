@@ -1,7 +1,13 @@
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
+import MyAppText from './MyAppText';
+
 import React from 'react';
+import {useSelector, useDispatch} from 'react-redux';
+import i18n from '../translation/I18Config';
 
 const BeneficiaresEmpty = props => {
+  const isarabic = useSelector(state => state.language.AR);
+  i18n.locale = useSelector(state => state.language.locale);
   return (
     <View
       style={{
@@ -11,16 +17,16 @@ const BeneficiaresEmpty = props => {
         paddingVertical: 100,
       }}>
       <Image source={require('../assets/images/benefitsempty.png')} />
-      <Text
+      <MyAppText
         style={{
           fontFamily: 'Roboto-Medium',
           fontSize: 18,
           fontWeight: '500',
           color: 'black',
         }}>
-        No Beneficiaries
-      </Text>
-      <Text
+        {i18n.t('NoBeneficiaries')}
+      </MyAppText>
+      <MyAppText
         style={{
           fontFamily: 'Roboto-Medium',
           fontSize: 14,
@@ -28,13 +34,11 @@ const BeneficiaresEmpty = props => {
           color: 'black',
           textAlign: 'center',
         }}>
-        You don’t have beneficiaries, add some so you can send money
-      </Text>
+        {i18n.t('NoBeneficiariesText')}
+      </MyAppText>
       <TouchableOpacity
         onPress={() => {
-          props.navigation.navigate('AddBeneficier', {
-            adduser: props.adduser,
-          });
+          props.navigation.navigate('AddBeneficier');
         }}
         style={{
           backgroundColor: '#007236',
@@ -47,15 +51,15 @@ const BeneficiaresEmpty = props => {
           paddingHorizontal: 10,
         }}>
         <Image source={require('../assets/images/addicon.png')} />
-        <Text
+        <MyAppText
           style={{
             fontFamily: 'Roboto-Medium',
             fontSize: 14,
             fontWeight: '600',
             color: 'white',
           }}>
-          Add
-        </Text>
+          {i18n.t('Add')}
+        </MyAppText>
       </TouchableOpacity>
     </View>
   );

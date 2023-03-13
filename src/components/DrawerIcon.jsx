@@ -1,7 +1,10 @@
 import {Image, StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import MyAppText from './MyAppText';
 
-const DrawerIcon = ({image}) => {
+import React from 'react';
+import {useSelector, useDispatch} from 'react-redux';
+
+const DrawerIcon = ({image, focused}) => {
   return (
     <View
       style={{
@@ -12,7 +15,10 @@ const DrawerIcon = ({image}) => {
         alignItems: 'center',
         borderRadius: 10,
       }}>
-      <Image source={image} />
+      <Image
+        source={image}
+        style={{tintColor: focused ? 'white' : '#1B1B1B'}}
+      />
     </View>
   );
 };

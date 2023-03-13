@@ -8,15 +8,23 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
+import MyAppText from './MyAppText';
+
 import React, {useState} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
+import {useNavigation} from '@react-navigation/native';
+import i18n from '../translation/I18Config';
 
 const MissionCompletedModal = props => {
+  const isarabic = useSelector(state => state.language.AR);
+  i18n.locale = useSelector(state => state.language.locale);
+  const navigation = useNavigation();
   return (
     <Modal animationType={'fade'} transparent={true} visible={props.openModal}>
       <View style={styles.modalPage}>
         <View style={styles.modalContent}>
           <Image source={require('../assets/images/missioncompleted.png')} />
-          <Text
+          <MyAppText
             style={{
               fontFamily: 'Roboto-Medium',
               fontSize: 20,
@@ -24,9 +32,9 @@ const MissionCompletedModal = props => {
               color: 'black',
               textAlign: 'center',
             }}>
-            Mission Completed
-          </Text>
-          <Text
+            {i18n.t('MissionComplete')}
+          </MyAppText>
+          <MyAppText
             style={{
               fontFamily: 'Roboto-Medium',
               fontSize: 16,
@@ -34,11 +42,17 @@ const MissionCompletedModal = props => {
               textAlign: 'center',
             }}>
             {props.text}
-          </Text>
+          </MyAppText>
           <View style={styles.submit}>
             <View style={styles.button}>
-              <TouchableOpacity onPress={props.toggleModal}>
-                <Text style={styles.buttontext}>Finish</Text>
+              <TouchableOpacity
+                onPress={() => {
+                  props.toggleModal();
+                  navigation.goBack();
+                }}>
+                <MyAppText style={styles.buttontext}>
+                  {i18n.t('Finish')}
+                </MyAppText>
               </TouchableOpacity>
             </View>
           </View>

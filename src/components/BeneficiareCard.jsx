@@ -1,5 +1,8 @@
 import {StyleSheet, Text, View, Image, Modal, Pressable} from 'react-native';
+import MyAppText from './MyAppText';
+
 import React, {useState} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
 import EditBeneficierModal from './EditBeneficierModal';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useRoute} from '@react-navigation/native';
@@ -10,6 +13,7 @@ const BeneficiareCard = props => {
     setmodalisopen(!modalisopen);
   };
   const route = useRoute();
+  const isarabic = useSelector(state => state.language.AR);
   return (
     <View
       style={{
@@ -43,7 +47,7 @@ const BeneficiareCard = props => {
           }}
         />
         <View style={{marginLeft: 10}}>
-          <Text
+          <MyAppText
             style={{
               fontFamily: 'Roboto-Medium',
               fontSize: 18,
@@ -51,7 +55,7 @@ const BeneficiareCard = props => {
               color: 'black',
             }}>
             {props.name}
-          </Text>
+          </MyAppText>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <Image source={require('../assets/images/phone.png')} />
             <Text

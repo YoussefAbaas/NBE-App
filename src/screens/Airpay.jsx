@@ -12,22 +12,43 @@ import MyAppText from '../components/MyAppText';
 import React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import HomeHeader from '../components/HomeHeader';
-import {DraxView} from 'react-native-drax';
-import {DraxProvider} from 'react-native-drax';
-import Cards from '../components/Cards';
+
 import {useState} from 'react';
-import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import FingerPrintModal from '../components/FingerPrintModal';
 import AirpayModal from '../components/AirpayModal';
+import DraggableCardItem from '../components/DraggableCardItem';
+import i18n from '../translation/I18Config';
 
 const Airpay = ({navigation}) => {
   const isarabic = useSelector(state => state.language.AR);
-  const [cards, setcards] = useState([
+  i18n.locale = useSelector(state => state.language.locale);
+  const [draggingIndex, setDraggingIndex] = useState(-1);
+  const cards = [
     require('../assets/images/card1.png'),
     require('../assets/images/card2.png'),
     require('../assets/images/card3.png'),
-  ]);
-  const [received, setreceived] = useState('');
+  ];
+  const [data, setdata] = useState(cards);
+
+  const handledragStart = index => {
+    //setDraggingIndex(-1);
+  };
+  const handlekdragEnd = index => {
+    setDraggingIndex(index);
+    let newdata = cards;
+    newdata[index] = null;
+    setdata(newdata);
+  };
+
+  const renderItem = ({item, index}) =>
+    item != null && (
+      <DraggableCardItem
+        item={item}
+        index={index}
+        handleDragStart={handledragStart}
+        handleDragEnd={handlekdragEnd}
+      />
+    );
   const [isfingermodalOpen, setisfingermodalOpen] = useState(false);
   const togglefingerModal = () => {
     setisfingermodalOpen(!isfingermodalOpen);
@@ -37,97 +58,81 @@ const Airpay = ({navigation}) => {
     setismodalOpen(!ismodalOpen);
   };
   return (
-    <DraxProvider>
+    <>
       <HomeHeader name="youssef" navigation={navigation} />
-      <GestureHandlerRootView>
-        <View>
+      <View style={{flex: 1}}>
+        <MyAppText
+          style={{
+            fontSize: 20,
+            fontWeight: '700',
+            color: 'black',
+            marginHorizontal: 18,
+            marginVertical: 10,
+          }}>
+          {i18n.t('Cards')}
+        </MyAppText>
+        <FlatList
+          data={data}
+          keyExtractor={item => {
+            return item;
+          }}
+          renderItem={renderItem}
+          horizontal
+          //contentContainerStyle={{flex: 1}}
+        />
+      </View>
+      <View
+        style={{
+          width: 346,
+          height: 216,
+          borderColor: '#007236C4',
+          borderStyle: 'dashed',
+          borderWidth: 2,
+          borderRadius: 20,
+          alignSelf: 'center',
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginTop: 50,
+          zIndex: -1,
+          position: 'absolute',
+          bottom: 100,
+        }}>
+        {draggingIndex <= -1 ? (
           <MyAppText
             style={{
               fontSize: 20,
-              fontWeight: '700',
-              color: 'black',
-              marginHorizontal: 18,
-              marginVertical: 10,
+              fontWeight: '500',
+              color: '#007236C4',
+              textAlign: 'center',
             }}>
-            Cards
+            {i18n.t('TouchCard')}
           </MyAppText>
-          <FlatList
-            data={cards}
-            keyExtractor={item => {
-              return item;
-            }}
-            renderItem={({item, index}) => {
-              return (
-                <DraxView key={index} dragPayload={item} longPressDelay={200}>
-                  <Image source={item} style={{marginHorizontal: 10}} />
-                </DraxView>
-              );
-            }}
-            horizontal
-            showsHorizontalScrollIndicator={true}
-          />
-        </View>
-        <DraxView
-          style={{
-            width: 346,
-            height: 216,
-            borderColor: '#007236C4',
-            borderStyle: 'dashed',
-            borderWidth: 2,
-            borderRadius: 20,
-            alignSelf: 'center',
-            alignItems: 'center',
-            justifyContent: 'center',
-            marginTop: 50,
-          }}
-          renderContent={({viewState}) => {
-            const receivingDrag = viewState && viewState.receivingDrag;
-            const payload = receivingDrag && receivingDrag.payload;
-            return received == '' ? (
-              <MyAppText
-                style={{
-                  fontSize: 20,
-                  fontWeight: '500',
-                  color: '#007236C4',
-                  textAlign: 'center',
-                }}>
-                Touch & hold a card then drag it to this box
-              </MyAppText>
-            ) : (
-              <Image source={received} />
-            );
-          }}
-          onReceiveDragDrop={event => {
-            setreceived(event.dragged.payload);
-          }}
-        />
-        <View style={styles.button}>
-          <TouchableOpacity onPress={togglefingerModal}>
-            <MyAppText style={styles.buttontext}>Pay Now</MyAppText>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={togglefingerModal}
-            style={styles.fingerprintButton}>
-            <Image source={require('../assets/images/FingerPrint.png')} />
-          </TouchableOpacity>
-        </View>
-        <FingerPrintModal
-          openModal={isfingermodalOpen}
-          toggleModal={togglefingerModal}
-          titletext="Fingerprint for NBE Mobile"
-          descriptiontext="Air Payment"
-          onpress={() => {
-            togglefingerModal();
-            toggleModal();
-          }}
-        />
-        <AirpayModal
-          openModal={ismodalOpen}
-          toggleModal={toggleModal}
-          success
-        />
-      </GestureHandlerRootView>
-    </DraxProvider>
+        ) : (
+          <Image source={cards[draggingIndex]} />
+        )}
+      </View>
+      <View style={styles.button}>
+        <TouchableOpacity onPress={togglefingerModal}>
+          <MyAppText style={styles.buttontext}> {i18n.t('PayNow')}</MyAppText>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={togglefingerModal}
+          style={styles.fingerprintButton}>
+          <Image source={require('../assets/images/FingerPrint.png')} />
+        </TouchableOpacity>
+      </View>
+      <FingerPrintModal
+        openModal={isfingermodalOpen}
+        toggleModal={togglefingerModal}
+        titletext={i18n.t('FingerPrintTitle')}
+        descriptiontext={i18n.t('FingerPrintAirpay')}
+        onpress={() => {
+          togglefingerModal();
+          toggleModal();
+        }}
+      />
+      <AirpayModal openModal={ismodalOpen} toggleModal={toggleModal} success />
+    </>
   );
 };
 
@@ -151,6 +156,8 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: 35,
     flexDirection: 'row',
+    position: 'absolute',
+    bottom: 20,
   },
   buttontext: {
     color: 'white',

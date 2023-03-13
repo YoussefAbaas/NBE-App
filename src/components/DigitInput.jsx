@@ -1,11 +1,14 @@
 import {StyleSheet, Text, View, TextInput} from 'react-native';
+
 import React from 'react';
 
-const DigitInput = () => {
+const DigitInput = props => {
   return (
     <View style={styles.forminput}>
       <View style={styles.forminputtext}>
         <TextInput
+          ref={props.innerref}
+          autoFocus={props.autoFocus}
           maxLength={1}
           placeholder="_"
           style={{
@@ -14,6 +17,7 @@ const DigitInput = () => {
             fontWeight: '400',
             paddingTop: 13,
           }}
+          onChangeText={props.onChangeText}
         />
       </View>
     </View>
@@ -35,7 +39,7 @@ const styles = StyleSheet.create({
     width: 45,
     borderRadius: 10,
     justifyContent: 'center',
-    paddingLeft: 10,
+    paddingHorizontal: 12,
   },
   forminputtext: {
     marginVertical: 5,

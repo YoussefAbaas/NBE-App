@@ -1,5 +1,8 @@
 import {StyleSheet, Text, View, Image} from 'react-native';
+import MyAppText from './MyAppText';
+
 import React from 'react';
+import {useSelector, useDispatch} from 'react-redux';
 
 const TabBarIcon = props => {
   return (
@@ -13,10 +16,14 @@ const TabBarIcon = props => {
       }}>
       <Image
         source={props.image}
-        style={{width: 30, height: 30}}
+        style={{
+          width: 30,
+          height: 30,
+          tintColor: props.focused ? 'white' : '#B7B7B7',
+        }}
         resizeMode="contain"
       />
-      <Text
+      <MyAppText
         style={{
           fontFamily: 'Roboto-Medium',
           fontSize: 14,
@@ -25,7 +32,7 @@ const TabBarIcon = props => {
           textAlign: 'center',
         }}>
         {props.name}
-      </Text>
+      </MyAppText>
     </View>
   );
 };

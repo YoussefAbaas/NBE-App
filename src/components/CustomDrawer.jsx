@@ -6,6 +6,8 @@ import {
   Switch,
   TouchableOpacity,
 } from 'react-native';
+import MyAppText from './MyAppText';
+
 import React, {useState} from 'react';
 import {
   DrawerContentScrollView,
@@ -16,27 +18,28 @@ import DrawerIcon from './DrawerIcon';
 import SideBarUserCard from './SideBarUserCard';
 import {useSelector, useDispatch} from 'react-redux';
 import {logout} from '../redux/userSlice';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
+import {useLayoutEffect} from 'react';
+import i18n from '../translation/I18Config';
 
 const CustomDrawer = props => {
   const [enabled, setenabled] = useState(false);
-  const navigation = useNavigation();
   const toggleswitch = () => {
     setenabled(!enabled);
   };
   const dispatch = useDispatch();
+  const isarabic = useSelector(state => state.language.AR);
+  i18n.locale = useSelector(state => state.language.locale);
+
   return (
     <View style={{flex: 1, backgroundColor: '#F1F3FB'}}>
       <DrawerContentScrollView
         {...props}
         contentContainerStyle={{backgroundColor: '#F1F3FB'}}>
-        <View
-          style={{
-            marginBottom: 20,
-          }}>
-          <MainHeader languageappear={true} day />
+        <MainHeader languageappear={true} day />
+        <View style={{marginTop: 20}}>
+          <DrawerItemList {...props} />
         </View>
-        <DrawerItemList {...props} />
         <View
           style={{
             flexDirection: 'row',
@@ -47,15 +50,15 @@ const CustomDrawer = props => {
           }}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <DrawerIcon image={require('../assets/images/dark.png')} />
-            <Text
+            <MyAppText
               style={{
                 marginLeft: 8,
                 fontFamily: 'Roboto-Medium',
                 fontSize: 16,
                 fontWeight: '500',
               }}>
-              Dark Mode
-            </Text>
+              {i18n.t('DarkMode')}
+            </MyAppText>
           </View>
           <Switch
             style={{backgroundColor: '#F1F3FB'}}
@@ -79,7 +82,7 @@ const CustomDrawer = props => {
               marginBottom: 10,
             }}>
             <DrawerIcon image={require('../assets/images/logout.png')} />
-            <Text
+            <MyAppText
               style={{
                 marginLeft: 7,
                 fontFamily: 'Roboto-Medium',
@@ -87,8 +90,8 @@ const CustomDrawer = props => {
                 fontWeight: '500',
                 color: '#FF0000',
               }}>
-              Log Out
-            </Text>
+              {i18n.t('Logout')}
+            </MyAppText>
           </View>
         </TouchableOpacity>
         <SideBarUserCard

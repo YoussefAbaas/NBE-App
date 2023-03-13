@@ -1,5 +1,8 @@
 import {StyleSheet, Text, View, FlatList, Image} from 'react-native';
+import MyAppText from '../components/MyAppText';
+
 import React from 'react';
+import {useSelector, useDispatch} from 'react-redux';
 import {useState} from 'react';
 import HomeHeader from '../components/HomeHeader';
 import BeneficiaresList from '../components/BeneficiaresList';
@@ -8,10 +11,10 @@ import BeneficiaresHeader from '../components/BeneficiaresHeader';
 import {useEffect} from 'react';
 import {addbeneficier, getbeneficiers} from '../firebase/FirestoreDB';
 import {useCallback} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
 import {fetchusers} from '../redux/beneficiersSlice';
 
 const Beneficiares = ({navigation}) => {
+  const isarabic = useSelector(state => state.language.AR);
   const [slider, setslider] = useState(false);
   const dispatch = useDispatch();
   const usersdata = useSelector(state => state.beneficiers.data);

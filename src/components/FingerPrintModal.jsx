@@ -7,15 +7,23 @@ import {
   TouchableWithoutFeedback,
   Image,
 } from 'react-native';
+import MyAppText from './MyAppText';
+
 import React, {useState} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
+import i18n from '../translation/I18Config';
 
 const FingerPrintModal = props => {
+  const isarabic = useSelector(state => state.language.AR);
+  i18n.locale = useSelector(state => state.language.locale);
   return (
     <Modal animationType={'slide'} transparent={true} visible={props.openModal}>
       <View style={styles.modalPage}>
         <View style={styles.modalContent}>
-          <Text style={styles.titletext}>{props.titletext}</Text>
-          <Text style={styles.descriptiontext}>{props.descriptiontext}</Text>
+          <MyAppText style={styles.titletext}>{props.titletext}</MyAppText>
+          <MyAppText style={styles.descriptiontext}>
+            {props.descriptiontext}
+          </MyAppText>
           <View style={styles.fingerprintsection}>
             <View style={styles.fingerprint}>
               <TouchableWithoutFeedback onPress={props.onpress}>
@@ -26,7 +34,7 @@ const FingerPrintModal = props => {
             </View>
           </View>
           <TouchableWithoutFeedback onPress={props.toggleModal}>
-            <Text style={styles.canceltext}>Cancel</Text>
+            <MyAppText style={styles.canceltext}>{i18n.t('Cancel')}</MyAppText>
           </TouchableWithoutFeedback>
         </View>
       </View>

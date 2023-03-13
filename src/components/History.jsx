@@ -6,12 +6,17 @@ import {
   FlatList,
   TouchableWithoutFeedback,
 } from 'react-native';
+import MyAppText from './MyAppText';
+
 import React, {useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {useEffect} from 'react';
 import {fetchusers} from '../redux/beneficiersSlice';
+import i18n from '../translation/I18Config';
 
 const History = props => {
+  const isarabic = useSelector(state => state.language.AR);
+  i18n.locale = useSelector(state => state.language.locale);
   const users = useSelector(state => state.beneficiers.data);
   let transactions = [];
   users.forEach(user => {
@@ -74,7 +79,7 @@ const History = props => {
 
   return (
     <View>
-      <Text
+      <MyAppText
         style={{
           fontFamily: 'Roboto-Medium',
           fontSize: 18,
@@ -83,8 +88,8 @@ const History = props => {
           marginHorizontal: 20,
           marginTop: 20,
         }}>
-        History
-      </Text>
+        {i18n.t('History')}
+      </MyAppText>
       <View style={{height: props.height}}>
         <FlatList
           data={transactions}

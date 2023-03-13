@@ -1,5 +1,8 @@
 import {StyleSheet, KeyboardAvoidingView} from 'react-native';
+import MyAppText from './MyAppText';
+
 import React from 'react';
+import {useSelector, useDispatch} from 'react-redux';
 
 const KeyboardDismiss = ({children}) => {
   return (

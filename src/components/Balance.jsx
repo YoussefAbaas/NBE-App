@@ -6,8 +6,12 @@ import {
   TouchableWithoutFeedback,
   Image,
 } from 'react-native';
+import MyAppText from './MyAppText';
+
 import FingerPrintModal from './FingerPrintModal';
 import React, {useState} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
+import i18n from '../translation/I18Config';
 
 const Balance = () => {
   const [ismodalOpen, setismodalOpen] = useState(false);
@@ -15,6 +19,9 @@ const Balance = () => {
   const toggleModal = () => {
     setismodalOpen(!ismodalOpen);
   };
+  const isarabic = useSelector(state => state.language.AR);
+  i18n.locale = useSelector(state => state.language.locale);
+  const balance = useSelector(state => state.user.balance);
   return (
     <View
       style={{
@@ -29,7 +36,7 @@ const Balance = () => {
         style={{width: 350, height: 130, borderRadius: 15}}
         source={require('../assets/images/balancebg.png')}>
         <View style={styles.balanceheader}>
-          <Text style={styles.balancetitle}>Balance</Text>
+          <MyAppText style={styles.balancetitle}>{i18n.t('Balance')}</MyAppText>
           <TouchableWithoutFeedback onPress={toggleModal}>
             <View style={styles.fingerprintButton}>
               <Image
@@ -40,16 +47,16 @@ const Balance = () => {
           </TouchableWithoutFeedback>
         </View>
         <TouchableWithoutFeedback>
-          <Text style={styles.balancetext}>
-            {balanceshown ? '$2,567,879' : 'Press here to show Balance'}
-          </Text>
+          <MyAppText style={styles.balancetext}>
+            {balanceshown ? '$' + balance : i18n.t('BalancePress')}
+          </MyAppText>
         </TouchableWithoutFeedback>
       </ImageBackground>
       <FingerPrintModal
         openModal={ismodalOpen}
         toggleModal={toggleModal}
-        titletext="Fingerprint for NBE Mobile"
-        descriptiontext="Show balance with your fingerprint"
+        titletext={i18n.t('FingerPrintTitle')}
+        descriptiontext={i18n.t('FingerPrintDescription')}
         onpress={() => {
           setbalanceshown(true);
           toggleModal();

@@ -5,15 +5,22 @@ import {
   TouchableWithoutFeedback,
   Image,
 } from 'react-native';
+import MyAppText from '../components/MyAppText';
+
 import React from 'react';
+import {useSelector, useDispatch} from 'react-redux';
 import HomeHeader from '../components/HomeHeader';
 import BeneficiareCard from '../components/BeneficiareCard';
 import {FlatList} from 'react-native';
+
 import {useNavigation} from '@react-navigation/native';
+import i18n from '../translation/I18Config';
 
 const BeneficiaresHistory = props => {
+  const isarabic = useSelector(state => state.language.AR);
   const user = props.route.params;
   const navigation = useNavigation();
+  i18n.locale = useSelector(state => state.language.locale);
   return (
     <View>
       <HomeHeader name={'youssef'} navigation={navigation} />
@@ -22,7 +29,7 @@ const BeneficiaresHistory = props => {
       </View>
       {user.transactions.length > 0 ? (
         <View style={{marginTop: 10}}>
-          <Text
+          <MyAppText
             style={{
               fontFamily: 'Roboto-Medium',
               fontSize: 20,
@@ -30,8 +37,8 @@ const BeneficiaresHistory = props => {
               color: 'black',
               marginLeft: 12,
             }}>
-            Transactions History
-          </Text>
+            {i18n.t('TransactionsHistory')}
+          </MyAppText>
           <FlatList
             data={user.transactions}
             keyExtractor={item => {
@@ -43,12 +50,11 @@ const BeneficiaresHistory = props => {
                 <TouchableWithoutFeedback>
                   <View
                     style={{
-                      flexDirection: 'row',
+                      flexDirection: isarabic ? 'row' : 'row-reverse',
                       alignItems: 'center',
                       justifyContent: 'space-between',
                       backgroundColor: 'transparent',
                       borderRadius: 12,
-                      marginLeft: -10,
                       borderBottomColor: 'black',
                       borderBottomWidth: 1,
                       paddingRight: 10,
@@ -100,7 +106,7 @@ const BeneficiaresHistory = props => {
             marginTop: 60,
           }}>
           <Image source={require('../assets/images/emptyhistory.png')} />
-          <Text
+          <MyAppText
             style={{
               fontFamily: 'Roboto-Medium',
               fontSize: 18,
@@ -108,9 +114,9 @@ const BeneficiaresHistory = props => {
               color: 'black',
               textAlign: 'center',
             }}>
-            No History
-          </Text>
-          <Text
+            {i18n.t('NoHistory')}
+          </MyAppText>
+          <MyAppText
             style={{
               fontFamily: 'Roboto-Medium',
               fontSize: 14,
@@ -118,8 +124,8 @@ const BeneficiaresHistory = props => {
               color: 'black',
               textAlign: 'center',
             }}>
-            Not a single transaction was made to this account
-          </Text>
+            {i18n.t('NoHistoryText')}
+          </MyAppText>
         </View>
       )}
     </View>

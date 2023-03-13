@@ -7,6 +7,8 @@ import {
   Touchable,
   TouchableOpacity,
 } from 'react-native';
+import MyAppText from '../components/MyAppText';
+
 import React, {useState} from 'react';
 import SignUpHeader from '../components/SignUpHeader';
 import PasswordValidation from '../components/PasswordValidation';
@@ -14,12 +16,15 @@ import CustomTextInput from '../components/CustomTextInput';
 import {registerPhoneNumber} from '../firebase/Auth';
 import {useSelector, useDispatch} from 'react-redux';
 import {login} from '../redux/userSlice';
+import i18n from '../translation/I18Config';
 
 const SetPassword = props => {
+  const isarabic = useSelector(state => state.language.AR);
   const [password, setpassword] = useState('');
   const [confirmpassword, setconfirmpassword] = useState('');
   const mobile = props.route.params.mobilenum;
   const dispatch = useDispatch();
+  i18n.locale = useSelector(state => state.language.locale);
   const passwordCheck = {
     lowercase: /[a-z]/.test(password),
     uppercase: /[A-Z]/.test(password),
@@ -27,17 +32,22 @@ const SetPassword = props => {
     number: /[0-9]/.test(password),
     specialcharacter: /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test(password),
   };
+
   return (
     <View style={styles.container}>
       <SignUpHeader navigation={props.navigation} />
       <View style={{paddingHorizontal: 20, paddingTop: 40}}>
-        <Text style={styles.headingtext}>Set your password</Text>
-        <Text style={styles.descriptiontext}>
-          Enter a strong password for your online banking account
-        </Text>
+        <MyAppText style={styles.headingtext}>
+          {i18n.t('SetPassword')}
+        </MyAppText>
+        <MyAppText style={styles.descriptiontext}>
+          {isarabic
+            ? 'Enter a strong password for your online banking account'
+            : 'يفضل ان كلمة السر تكون قوية ومش مستخدمة فى مكان تاني'}
+        </MyAppText>
       </View>
       <CustomTextInput
-        text="Password"
+        text={i18n.t('Password')}
         background="white"
         textcolor="black"
         image={require('../assets/images/password.png')}
@@ -48,7 +58,7 @@ const SetPassword = props => {
         secureTextEntry
       />
       <CustomTextInput
-        text="Confirm Password"
+        text={i18n.t('ConfirmPassword')}
         background="white"
         textcolor="black"
         image={require('../assets/images/password.png')}
@@ -67,16 +77,24 @@ const SetPassword = props => {
             onPress={async () => {
               if (
                 Object.values(passwordCheck).every(field => field === true) &&
-                password == confirmpassword
+                password == confirmpassword &&
+                password != null &&
+                confirmpassword != null
               ) {
                 const accountnum = await registerPhoneNumber(mobile, password);
                 if (accountnum) {
-                  dispatch(login({phone: mobile, accountnum: accountnum}));
+                  dispatch(
+                    login({
+                      phone: mobile,
+                      accountnum: accountnum,
+                      balance: 100000,
+                    }),
+                  );
                   props.navigation.navigate('SignupSuccess');
                 }
               } else alert('Error in password');
             }}>
-            <Text style={styles.buttontext}>Submit</Text>
+            <MyAppText style={styles.buttontext}>{i18n.t('next')}</MyAppText>
           </TouchableOpacity>
         </View>
       </View>

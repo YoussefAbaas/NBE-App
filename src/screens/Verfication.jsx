@@ -1,11 +1,16 @@
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import MyAppText from '../components/MyAppText';
+
+import React, {useEffect, useRef, useState} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
 import SignUpHeader from '../components/SignUpHeader';
 import DigitInput from '../components/DigitInput';
 import MissionCompletedModal from '../components/MissionCompletedModal';
-import {useSelector, useDispatch} from 'react-redux';
+import {handleVerifyCode} from '../firebase/Auth';
+import i18n from '../translation/I18Config';
 
 const Verification = props => {
+  const isarabic = useSelector(state => state.language.AR);
   const prevscreen = props.route.params.previousScreen;
   const [ismodalopen, setismodalopen] = useState(false);
   const mobilenum = props.route.params.mobilenum;
@@ -14,6 +19,9 @@ const Verification = props => {
   };
   const displayname = useSelector(state => state.user.phone);
   const [timer, settimer] = useState(30);
+  const verificationId = props.route.params.verificationId;
+  i18n.locale = useSelector(state => state.language.locale);
+
   useEffect(() => {
     const interval = setInterval(() => {
       if (timer > 0) settimer(timer => timer - 1);
@@ -22,52 +30,83 @@ const Verification = props => {
       clearInterval(interval);
     };
   }, [timer]);
+  const [OTP, setOTP] = useState('');
+  const refs = Array(6)
+    .fill()
+    .map(() => useRef(null));
+  const handlechangeotp = (text, i) => {
+    const newvalue = [...OTP];
+    newvalue[i] = text;
+    setOTP(newvalue.join(''));
+    if (text && i < 5) {
+      refs[i + 1].current.focus();
+    }
+  };
   return (
     <View style={styles.container}>
       <SignUpHeader navigation={props.navigation} />
       <View style={{paddingHorizontal: 20, paddingTop: 40}}>
-        <Text style={styles.headingtext}>
-          {prevscreen == 'Transfer' ? 'OTP' : 'Verification'}
-        </Text>
-        <Text style={styles.descriptiontext}>
-          Enter 5 digit code we sent to {displayname || mobilenum}
-        </Text>
+        <MyAppText style={styles.headingtext}>
+          {
+            /*isarabic
+            ? prevscreen == 'Transfer'
+              ? 'OTP'
+              : 'Verification'
+  : 'رمز التاكيد'*/
+            i18n.t('Verification')
+          }
+        </MyAppText>
+        <MyAppText style={styles.descriptiontext}>
+          {`${i18n.t('WriteDigits')} ${displayname || mobilenum}`}
+        </MyAppText>
         <View style={styles.digits}>
-          {Array.from({length: 5}, (_, i) => {
-            return <DigitInput key={i} />;
+          {Array.from({length: 6}, (_, i) => {
+            return (
+              <DigitInput
+                innerref={refs[i]}
+                key={i}
+                onChangeText={text => {
+                  handlechangeotp(text, i);
+                }}
+              />
+            );
           })}
         </View>
-        <Text
+        <MyAppText
           style={{
             fontFamily: 'Roboto-Medium',
             fontSize: 16,
             fontWeight: '400',
           }}>
-          Didn't receive the code?
-        </Text>
-        <Text
+          {i18n.t('NotReceiveCode')}
+        </MyAppText>
+        <MyAppText
           style={{
             fontFamily: 'Roboto-Medium',
             fontSize: 16,
             fontWeight: '700',
             color: 'black',
           }}>
-          Request new one in 00:{timer >= 10 ? timer : '0' + timer}
-        </Text>
-        <Text></Text>
+          {`${i18n.t('RequestNewCode')}${timer >= 10 ? timer : '0' + timer}`}
+        </MyAppText>
+        <MyAppText></MyAppText>
       </View>
 
       <View style={styles.submit}>
         <View style={styles.button}>
           <TouchableOpacity
-            onPress={() => {
-              if (prevscreen == 'Signup')
-                props.navigation.navigate('SetPassword', {
-                  mobilenum: mobilenum,
-                });
-              else toggleModal();
+            onPress={async () => {
+              //const isverified = await handleVerifyCode(verificationId, OTP);
+              //console.log(isverified);
+              if (true) {
+                if (prevscreen == 'Signup')
+                  props.navigation.navigate('SetPassword', {
+                    mobilenum: mobilenum,
+                  });
+                else toggleModal();
+              } else alert('Wrong OTP code');
             }}>
-            <Text style={styles.buttontext}>Submit</Text>
+            <MyAppText style={styles.buttontext}>{i18n.t('next')}</MyAppText>
           </TouchableOpacity>
         </View>
       </View>
@@ -76,9 +115,9 @@ const Verification = props => {
         toggleModal={toggleModal}
         username={props.route.params.name}
         text={
-          prevscreen == 'TransferOverview'
-            ? `Transfer to ${props.route.params.name} was successful`
-            : `${props.route.params.name} was successfully added to your beneficiares list`
+          prevscreen == 'Transfer'
+            ? i18n.t('TransferSuccessful', {name: props.route.params.name})
+            : i18n.t('AddedSuccessful', {name: props.route.params.name})
         }
       />
     </View>

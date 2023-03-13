@@ -7,9 +7,13 @@ import {
   Image,
   ActivityIndicator,
 } from 'react-native';
+import MyAppText from '../components/MyAppText';
+
 import React, {useState} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
 // Import required components
 import {SafeAreaView} from 'react-native';
+
 // Import Map and Marker
 import MapView, {Marker} from 'react-native-maps';
 import HomeHeader from '../components/HomeHeader';
@@ -17,6 +21,7 @@ import Geolocation from '@react-native-community/geolocation';
 import {useEffect} from 'react';
 
 const Atms = ({navigation}) => {
+  console.log('debugger');
   useEffect(() => {
     Geolocation.getCurrentPosition(
       position => {

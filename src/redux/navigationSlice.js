@@ -10,7 +10,6 @@ export const navigationSlice = createSlice({
   reducers: {
     save: (state, actions) => {
       state.navigationState = actions.payload;
-      console.log(state.navigationState);
     },
   },
 });

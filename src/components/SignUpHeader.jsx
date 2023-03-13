@@ -5,17 +5,24 @@ import {
   Image,
   TouchableWithoutFeedback,
 } from 'react-native';
+import MyAppText from './MyAppText';
+
 import React from 'react';
+import {useSelector, useDispatch} from 'react-redux';
 
 const SignUpHeader = ({navigation}) => {
   const ReturnToLastPage = () => {
     navigation.goBack();
   };
+  const isarabic = useSelector(state => state.language.AR);
   return (
     <View style={styles.header}>
       <TouchableWithoutFeedback onPress={ReturnToLastPage}>
         <View style={styles.return}>
-          <Image source={require('../assets/images/return.png')} />
+          <Image
+            source={require('../assets/images/return.png')}
+            style={{transform: [{scaleX: isarabic ? 1 : -1}]}}
+          />
         </View>
       </TouchableWithoutFeedback>
       <Image

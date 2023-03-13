@@ -1,25 +1,45 @@
-import {StyleSheet, Text, View, Image} from 'react-native';
-import React, {useEffect} from 'react';
+import {StyleSheet, Text, View, Image, Animated} from 'react-native';
 
-const SplashScreen = ({navigation}) => {
+import React, {useEffect} from 'react';
+import {useState} from 'react';
+
+const SplashScreen = ({children}) => {
+  const [splashtimePassed, setsplashtimePassed] = useState(false);
+  const [animation, setAnimation] = useState(new Animated.Value(1));
   useEffect(() => {
-    setTimeout(() => {
-      navigation.navigate('Login');
-    }, 1000);
+    const timer1 = setTimeout(() => {
+      Animated.timing(animation, {
+        toValue: 0,
+        duration: 1000,
+        useNativeDriver: true,
+      }).start();
+    }, 1800);
+
+    const timer2 = setTimeout(() => {
+      setsplashtimePassed(true);
+    }, 2000);
+
+    return () => {
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+    };
   }, []);
 
-  return (
-    <View style={styles.container}>
-      <Image
-        source={require('../assets/images/splashlogo1.png')}
-        style={styles.mainlogo}
-      />
-      <Image
-        source={require('../assets/images/splashlogo2.png')}
-        style={styles.footerlogo}
-      />
-    </View>
-  );
+  if (splashtimePassed) return children;
+  else {
+    return (
+      <Animated.View style={[styles.container, {opacity: animation}]}>
+        <Image
+          source={require('../assets/images/splashlogo1.png')}
+          style={styles.mainlogo}
+        />
+        <Image
+          source={require('../assets/images/splashlogo2.png')}
+          style={styles.footerlogo}
+        />
+      </Animated.View>
+    );
+  }
 };
 
 export default SplashScreen;

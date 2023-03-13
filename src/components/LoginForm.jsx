@@ -6,24 +6,31 @@ import {
   TextInput,
   Touchable,
   TouchableWithoutFeedback,
+  Pressable,
 } from 'react-native';
+import MyAppText from './MyAppText';
+
 import React, {useState} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
 import CustomTextInput from './CustomTextInput';
 import {signIn} from '../firebase/Auth';
-import {useSelector, useDispatch} from 'react-redux';
 import {login} from '../redux/userSlice';
+import i18n from '../translation/I18Config';
 
 const LoginForm = props => {
   const [email, setemail] = useState('');
   const [password, setpassword] = useState('');
   const dispatch = useDispatch();
+  const isarabic = useSelector(state => state.language.AR);
+  const [Remember, setRemember] = useState(false);
+  i18n.locale = useSelector(state => state.language.locale);
   return (
     <View style={styles.loginform}>
-      <Text style={styles.formheader}>
-        Welcome to {'\n'}The National Bank of Egypt
-      </Text>
+      <MyAppText style={[styles.formheader, {marginLeft: isarabic ? 0 : 30}]}>
+        {i18n.t('MainPageWelcome')}
+      </MyAppText>
       <CustomTextInput
-        text="Username"
+        text={i18n.t('Username')}
         image={require('../assets/images/email.png')}
         background="transparent"
         textcolor="white"
@@ -33,7 +40,7 @@ const LoginForm = props => {
         value={email}
       />
       <CustomTextInput
-        text="Password"
+        text={i18n.t('Password')}
         image={require('../assets/images/password.png')}
         background="transparent"
         textcolor="white"
@@ -45,13 +52,26 @@ const LoginForm = props => {
       />
       <View style={styles.loginprops}>
         <View style={styles.rememberme}>
-          <View style={styles.check}>
+          <Pressable
+            style={[
+              styles.check,
+              {backgroundColor: Remember ? '#007236' : 'white'},
+            ]}
+            onPress={() => {
+              setRemember(!Remember);
+            }}>
             <Image source={require('../assets/images/check.png')} />
-          </View>
-          <Text style={styles.propstext}>Remember me</Text>
+          </Pressable>
+          <MyAppText style={styles.propstext}>
+            {' '}
+            {i18n.t('RememberMe')}
+          </MyAppText>
         </View>
 
-        <Text style={styles.propstext}>Forgot password?</Text>
+        <MyAppText style={styles.propstext}>
+          {' '}
+          {isarabic ? 'Forgot password?' : 'مش عارف كلمة السر؟'}
+        </MyAppText>
       </View>
 
       <View style={styles.loginbuttons}>
@@ -64,7 +84,9 @@ const LoginForm = props => {
             }
           }}>
           <View style={styles.loginButton}>
-            <Text style={styles.loginButtontext}>Log in</Text>
+            <MyAppText style={styles.loginButtontext}>
+              {i18n.t('Login')}
+            </MyAppText>
           </View>
         </TouchableWithoutFeedback>
         <TouchableWithoutFeedback onPress={props.openModal}>
@@ -74,17 +96,18 @@ const LoginForm = props => {
         </TouchableWithoutFeedback>
       </View>
 
-      <Text style={styles.signuptext}>
-        Don’t have an account?{' '}
+      <MyAppText style={styles.signuptext}>
+        {i18n.t('Noaccount')}
         <TouchableWithoutFeedback
           onPress={() => {
             props.navigation.navigate('Signup');
           }}>
-          <Text style={{color: '#F6A721', textDecorationLine: 'underline'}}>
-            Sign up
-          </Text>
+          <MyAppText
+            style={{color: '#F6A721', textDecorationLine: 'underline'}}>
+            {i18n.t('Signup')}
+          </MyAppText>
         </TouchableWithoutFeedback>
-      </Text>
+      </MyAppText>
     </View>
   );
 };

@@ -1,7 +1,13 @@
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
+import MyAppText from './MyAppText';
+
 import React from 'react';
+import {useSelector, useDispatch} from 'react-redux';
+import i18n from '../translation/I18Config';
 
 const BeneficiaresHeader = props => {
+  const isarabic = useSelector(state => state.language.AR);
+  i18n.locale = useSelector(state => state.language.locale);
   return (
     <View
       style={{
@@ -9,7 +15,7 @@ const BeneficiaresHeader = props => {
         alignItems: 'center',
         justifyContent: 'space-around',
       }}>
-      <Text
+      <MyAppText
         style={{
           fontFamily: 'Roboto-Medium',
           fontSize: 20,
@@ -18,8 +24,8 @@ const BeneficiaresHeader = props => {
           marginHorizontal: -40,
           marginVertical: 20,
         }}>
-        Beneficiaries
-      </Text>
+        {i18n.t('Beneficiaries')}
+      </MyAppText>
       <View
         style={{
           flexDirection: 'row',
@@ -78,12 +84,10 @@ const BeneficiaresHeader = props => {
         </View>
         <TouchableOpacity
           onPress={() => {
-            props.navigation.navigate('AddBeneficier', {
-              adduser: props.adduser,
-            });
+            props.navigation.navigate('AddBeneficier');
           }}
           style={{
-            backgroundColor: '#007236',
+            backgroundColor: 'white',
             width: 63,
             height: 30,
             borderRadius: 50,
@@ -92,16 +96,19 @@ const BeneficiaresHeader = props => {
             alignItems: 'center',
             paddingHorizontal: 10,
           }}>
-          <Image source={require('../assets/images/addicon.png')} />
-          <Text
+          <Image
+            source={require('../assets/images/addicon.png')}
+            style={{tintColor: '#007236'}}
+          />
+          <MyAppText
             style={{
               fontFamily: 'Roboto-Medium',
               fontSize: 14,
               fontWeight: '600',
-              color: 'white',
+              color: '#007236',
             }}>
-            Add
-          </Text>
+            {i18n.t('Add')}
+          </MyAppText>
         </TouchableOpacity>
       </View>
     </View>

@@ -1,5 +1,8 @@
 import React, {useState} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
 import {StyleSheet, Text, View} from 'react-native';
+import MyAppText from './MyAppText';
+
 import {Dropdown} from 'react-native-element-dropdown';
 
 const data = [{label: '043 - Water Way Mall', value: '1'}];
@@ -7,12 +10,13 @@ const data = [{label: '043 - Water Way Mall', value: '1'}];
 const DropdownComponent = props => {
   const [value, setValue] = useState(null);
   const [isFocus, setIsFocus] = useState(false);
+  const isarabic = useSelector(state => state.language.AR);
 
   return (
     <View style={styles.container}>
-      <Text style={[styles.label, isFocus && {color: '#007236'}]}>
+      <MyAppText style={[styles.label, isFocus && {color: '#007236'}]}>
         {props.label}
-      </Text>
+      </MyAppText>
       <Dropdown
         style={styles.dropdown}
         placeholderStyle={styles.placeholderStyle}
@@ -23,7 +27,7 @@ const DropdownComponent = props => {
         maxHeight={300}
         labelField="label"
         valueField="value"
-        placeholder={!isFocus ? 'Select item' : '...'}
+        placeholder={!isFocus ? (isarabic ? 'Select item' : 'اختار') : '...'}
         value={value}
         onFocus={() => setIsFocus(true)}
         onBlur={() => setIsFocus(false)}

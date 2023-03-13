@@ -1,8 +1,21 @@
-import {createSlice} from '@reduxjs/toolkit';
+import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
+import firestore from '@react-native-firebase/firestore';
 
+const fetchUserData = createAsyncThunk('user/getdata', async phone => {
+  const user = await firestore()
+    .collection('Users')
+    .where('phone', '==', phone)
+    .limit(1)
+    .get()
+    .then(querysnapshot => {
+      return querysnapshot.docs[0].data();
+    });
+  return user;
+});
 const initialState = {
   phone: null,
   accountnum: null,
+  balance: null,
 };
 
 export const userSlice = createSlice({
@@ -10,26 +23,27 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     login: (state, action) => {
-      // Redux Toolkit allows us to write "mutating" logic in reducers. It
-      // doesn't actually mutate the state because it uses the Immer library,
-      // which detects changes to a "draft state" and produces a brand new
-      // immutable state based off those changes
       state.phone = action.payload.phone;
       state.accountnum = action.payload.accountnum;
-      console.log('user is', state.phone);
+      state.balance = action.payload.balance;
     },
     logout: state => {
-      // Redux Toolkit allows us to write "mutating" logic in reducers. It
-      // doesn't actually mutate the state because it uses the Immer library,
-      // which detects changes to a "draft state" and produces a brand new
-      // immutable state based off those changes
       state.phone = null;
       state.accountnum = null;
+      state.balance = null;
     },
+  },
+  extraReducers: builder => {
+    builder.addCase(fetchUserData.fulfilled, (state, action) => {
+      //state.phone = action.payload.phone;
+      //state.accountnum = action.payload.accountnum;
+      state.balance = action.payload.balance;
+    });
   },
 });
 
 // Action creators are generated for each case reducer function
+export const fetchuserdata = fetchUserData;
 export const {login, logout} = userSlice.actions;
 
 export default userSlice.reducer;

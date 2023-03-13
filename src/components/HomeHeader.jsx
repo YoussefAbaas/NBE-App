@@ -1,10 +1,14 @@
 import {StyleSheet, Text, View, Image, Pressable} from 'react-native';
+import MyAppText from './MyAppText';
+
 import React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
+import i18n from '../translation/I18Config';
 
 const HomeHeader = props => {
   const displayname = useSelector(state => state.user.phone);
-
+  const isarabic = useSelector(state => state.language.AR);
+  i18n.locale = useSelector(state => state.language.locale);
   return (
     <View style={styles.header}>
       <View style={styles.headerleft}>
@@ -21,17 +25,17 @@ const HomeHeader = props => {
           source={require('../assets/images/user.png')}
           style={{width: 40, height: 40}}
         />
-        <Text
+        <MyAppText
           style={{
             fontFamily: 'Roboto-Medium',
             fontSize: 14,
             fontWeight: '700',
           }}>
-          Good morning {'\n'}{' '}
+          {i18n.t('Morning')} {'\n'}{' '}
           <Text style={{color: 'black'}}>
             {displayname + '@nbe.com' || props.name}
           </Text>
-        </Text>
+        </MyAppText>
       </View>
       <View style={styles.ring}>
         <Image source={require('../assets/images/ring.png')} />

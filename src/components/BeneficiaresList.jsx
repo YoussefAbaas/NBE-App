@@ -6,11 +6,15 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
+import MyAppText from './MyAppText';
+
 import {useState} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
 import React from 'react';
 import BeneficiareCard from './BeneficiareCard';
 
 const BeneficiaresList = props => {
+  const isarabic = useSelector(state => state.language.AR);
   return props.slider == true ? (
     <FlatList
       data={props.users}
@@ -61,7 +65,7 @@ const BeneficiaresList = props => {
                 borderRadius: 10,
               }}
             />
-            <Text
+            <MyAppText
               style={{
                 textAlign: 'center',
                 fontFamily: 'Roboto-Medium',
@@ -70,7 +74,7 @@ const BeneficiaresList = props => {
                 color: 'black',
               }}>
               {item.name}
-            </Text>
+            </MyAppText>
           </View>
         );
       }}

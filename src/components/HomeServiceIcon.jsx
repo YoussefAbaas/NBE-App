@@ -1,7 +1,11 @@
 import {StyleSheet, Text, View, Image} from 'react-native';
+import MyAppText from './MyAppText';
+
 import React from 'react';
+import {useSelector, useDispatch} from 'react-redux';
 
 const HomeServiceIcon = props => {
+  const isarabic = useSelector(state => state.language.AR);
   return (
     <View style={{justifyContent: 'center', width: 60}}>
       <View
@@ -15,7 +19,7 @@ const HomeServiceIcon = props => {
         }}>
         <Image source={props.image} />
       </View>
-      <Text
+      <MyAppText
         style={{
           fontWeight: '700',
           fontFamily: 'Roboto-Medium',
@@ -24,7 +28,7 @@ const HomeServiceIcon = props => {
           textAlign: 'center',
         }}>
         {props.text}
-      </Text>
+      </MyAppText>
     </View>
   );
 };

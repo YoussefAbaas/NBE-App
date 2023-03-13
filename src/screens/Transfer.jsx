@@ -1,18 +1,23 @@
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import MyAppText from '../components/MyAppText';
+
 import React, {useState} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
 import HomeHeader from '../components/HomeHeader';
 import SignUpHeader from '../components/SignUpHeader';
 import DropdownComponent from '../components/DropDownComponent';
 import CustomTextInput from '../components/CustomTextInput';
 import {addtransaction} from '../firebase/FirestoreDB';
 import {useRoute} from '@react-navigation/native';
-import {useDispatch, useSelector} from 'react-redux';
 import {fetchusers} from '../redux/beneficiersSlice';
+import {fetchuserdata} from '../redux/userSlice';
 
 const Transfer = ({navigation}) => {
+  const isarabic = useSelector(state => state.language.AR);
   const [amount, setamount] = useState('');
   const [reason, setreason] = useState('');
   const useraccountNum = useSelector(state => state.user.accountnum);
+  const usermobileNum = useSelector(state => state.user.phone);
   const route = useRoute();
   const benefaccountNum = route.params?.benefAccount;
   const typesoftransfer = [
@@ -44,7 +49,7 @@ const Transfer = ({navigation}) => {
   return (
     <View style={{height: '100%'}}>
       <SignUpHeader navigation={navigation} />
-      <Text
+      <MyAppText
         style={{
           fontFamily: 'Roboto-Medium',
           fontSize: 20,
@@ -53,7 +58,7 @@ const Transfer = ({navigation}) => {
           margin: 15,
         }}>
         Transfer
-      </Text>
+      </MyAppText>
       <View style={{marginTop: 10}}>
         <DropdownComponent label="Type of transfer" data={typesoftransfer} />
       </View>
@@ -83,12 +88,14 @@ const Transfer = ({navigation}) => {
             onPress={async () => {
               //console.log(username);
               await addtransaction({
+                from: usermobileNum,
                 id: Math.random(),
                 username: username,
                 name: reason,
                 amount: amount,
                 date: formatdate(),
               });
+              dispatch(fetchuserdata(mobilenum));
               dispatch(fetchusers(mobilenum));
               navigation.navigate('OTP', {
                 mobilenum: mobilenum,
@@ -96,7 +103,7 @@ const Transfer = ({navigation}) => {
                 previousScreen: route.name,
               });
             }}>
-            <Text style={styles.buttontext}>Transfer</Text>
+            <MyAppText style={styles.buttontext}>Transfer</MyAppText>
           </TouchableOpacity>
         </View>
       </View>

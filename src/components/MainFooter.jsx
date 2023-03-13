@@ -1,17 +1,21 @@
 import {StyleSheet, Text, View} from 'react-native';
+import MyAppText from './MyAppText';
+
 import React from 'react';
+import {useSelector, useDispatch} from 'react-redux';
+import i18n from '../translation/I18Config';
 
 const MainFooter = () => {
+  const isarabic = useSelector(state => state.language.AR);
+  i18n.locale = useSelector(state => state.language.locale);
   return (
     <View style={styles.container}>
-      <Text style={styles.links}>
-        <Text style={styles.link}>Contact Us</Text>-
-        <Text style={styles.link}>FAQs</Text>-
-        <Text style={styles.link}>Help</Text>
-      </Text>
-      <Text style={styles.Rightstext}>
-        Copyright © NBE 2021 All Rights Reserved - National Bank of Egypt
-      </Text>
+      <MyAppText style={styles.links}>
+        <MyAppText style={styles.link}>{i18n.t('Contactus')}</MyAppText>-
+        <MyAppText style={styles.link}>{i18n.t('FAQs')}</MyAppText>-
+        <MyAppText style={styles.link}>{i18n.t('Help')}</MyAppText>
+      </MyAppText>
+      <MyAppText style={styles.Rightstext}>{i18n.t('CopyRights')}</MyAppText>
     </View>
   );
 };

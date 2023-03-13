@@ -1,9 +1,12 @@
 import {StyleSheet, Text, View, Image} from 'react-native';
+import MyAppText from './MyAppText';
+
 import React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 
 const SideBarUserCard = props => {
   const displayname = useSelector(state => state.user.phone);
+  const isarabic = useSelector(state => state.language.AR);
   return (
     <View
       style={{

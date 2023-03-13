@@ -1,22 +1,55 @@
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
+import MyAppText from './MyAppText';
+
 import React, {useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import {change} from '../redux/languageSlice';
-import {useNavigation} from '@react-navigation/native';
+import {change, setLanguage} from '../redux/languageSlice';
+import {useNavigation, useNavigationState} from '@react-navigation/native';
+import {I18nManager} from 'react-native';
+import {DrawerActions} from '@react-navigation/native';
+
+import RNRestart from 'react-native-restart';
+import {save} from '../redux/navigationSlice';
 
 const MainHeader = props => {
   const dispatch = useDispatch();
   const language = useSelector(state => state.language.AR);
+  const locale = useSelector(state => state.language.locale);
+  const navigationState = useNavigationState(state => state);
   const navigation = useNavigation();
-  const languageRestart = () => {
-    dispatch(change());
+
+  const languageChange = () => {
+    const saveNavigationState = () => {
+      return new Promise((resolve, reject) => {
+        dispatch(save(navigationState));
+        resolve();
+      });
+    };
+
+    const updatelanguage = () => {
+      return new Promise((resolve, reject) => {
+        dispatch(change());
+        if (locale == 'ar') dispatch(setLanguage('en'));
+        else dispatch(setLanguage('ar'));
+        navigation.dispatch(DrawerActions?.closeDrawer());
+        resolve();
+      });
+    };
+    saveNavigationState()
+      .then(updatelanguage)
+      .then(() => {
+        I18nManager.forceRTL(language);
+        RNRestart.Restart();
+      });
   };
   return (
     <View style={styles.header}>
       {props.languageappear ? (
-        <TouchableOpacity onPress={languageRestart}>
+        <TouchableOpacity onPress={languageChange}>
           <View style={styles.language}>
-            <Text style={styles.languagetext}>{language ? 'AR' : 'EN'}</Text>
+            <MyAppText style={styles.languagetext}>
+              {language ? 'AR' : 'EN'}
+            </MyAppText>
           </View>
         </TouchableOpacity>
       ) : null}

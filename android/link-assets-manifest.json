@@ -48,6 +48,18 @@
     {
       "path": "src/assets/fonts/Roboto-ThinItalic.ttf",
       "sha1": "cc79d5a23bd0ec08b1d99f5390bf33cacc3082f4"
+    },
+    {
+      "path": "src/assets/fonts/TheMixArab-Black.ttf",
+      "sha1": "35ceab16434200c7af7bb90bc8cca38fbccab215"
+    },
+    {
+      "path": "src/assets/fonts/TheMixArab-Bold.ttf",
+      "sha1": "ef6f7adde809f90ca220c232e400dc24ccdc3b1d"
+    },
+    {
+      "path": "src/assets/fonts/TheMixArab-Regular.ttf",
+      "sha1": "7bbfea943c6dd9d914da07eb27247253ce8faa9d"
     }
   ]
 }

@@ -7,9 +7,15 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
+import MyAppText from './MyAppText';
+
 import React from 'react';
+import {useSelector, useDispatch} from 'react-redux';
+import i18n from '../translation/I18Config';
 
 const EditBeneficierModal = props => {
+  const isarabic = useSelector(state => state.language.AR);
+  i18n.locale = useSelector(state => state.language.locale);
   return (
     <View>
       <Modal
@@ -89,7 +95,7 @@ const EditBeneficierModal = props => {
             <TouchableOpacity
               onPress={() => {
                 console.log(props.name);
-                props.navigation.navigate('TransferOverview', {
+                props.navigation.navigate('Transfer', {
                   name: props.name,
                   mobile: props.phone,
                   benefAccount: props.accountnum,
@@ -116,23 +122,23 @@ const EditBeneficierModal = props => {
                 <Image source={require('../assets/images/transferbenf.png')} />
               </View>
               <View>
-                <Text
+                <MyAppText
                   style={{
                     color: 'black',
                     fontFamily: 'Roboto-Medium',
                     fontSize: 16,
                     fontWeight: '500',
                   }}>
-                  Transfer
-                </Text>
-                <Text
+                  {i18n.t('Transfer')}
+                </MyAppText>
+                <MyAppText
                   style={{
                     fontFamily: 'Roboto-Medium',
                     fontSize: 14,
                     fontWeight: '500',
                   }}>
-                  Transfer money to {props.name}
-                </Text>
+                  {i18n.t('TransferMoney')} {props.name}
+                </MyAppText>
               </View>
             </TouchableOpacity>
             <View
@@ -156,23 +162,23 @@ const EditBeneficierModal = props => {
                 <Image source={require('../assets/images/editbenf.png')} />
               </View>
               <View>
-                <Text
+                <MyAppText
                   style={{
                     color: 'black',
                     fontFamily: 'Roboto-Medium',
                     fontSize: 16,
                     fontWeight: '500',
                   }}>
-                  Edit
-                </Text>
-                <Text
+                  {i18n.t('Edit')}
+                </MyAppText>
+                <MyAppText
                   style={{
                     fontFamily: 'Roboto-Medium',
                     fontSize: 14,
                     fontWeight: '500',
                   }}>
-                  Edit {props.name} data
-                </Text>
+                  {i18n.t('EditData', {name: props.name})}
+                </MyAppText>
               </View>
             </View>
             <View
@@ -196,23 +202,23 @@ const EditBeneficierModal = props => {
                 <Image source={require('../assets/images/deletebenf.png')} />
               </View>
               <View>
-                <Text
+                <MyAppText
                   style={{
                     color: 'black',
                     fontFamily: 'Roboto-Medium',
                     fontSize: 16,
                     fontWeight: '500',
                   }}>
-                  Delete {props.name}
-                </Text>
-                <Text
+                  {i18n.t('Delete')} {props.name}
+                </MyAppText>
+                <MyAppText
                   style={{
                     fontFamily: 'Roboto-Medium',
                     fontSize: 14,
                     fontWeight: '500',
                   }}>
-                  Delete {props.name} & his transactions history
-                </Text>
+                  {i18n.t('DeleteTransactions', {name: props.name})}
+                </MyAppText>
               </View>
             </View>
           </View>
@@ -236,7 +242,7 @@ const styles = StyleSheet.create({
   modalContent: {
     position: 'absolute',
     width: '100%',
-    height: '30%',
+    height: '33%',
     backgroundColor: 'white',
     flex: 1,
     paddingHorizontal: 10,

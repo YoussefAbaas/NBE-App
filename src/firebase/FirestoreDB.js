@@ -28,6 +28,7 @@ export const getbeneficiers = async () => {
 };
 
 export const addtransaction = async transaction => {
+  // get benficier data
   const [userid, usertransactions, amount] = await firestore()
     .collection('Beneficiers')
     // Filter results
@@ -42,6 +43,7 @@ export const addtransaction = async transaction => {
         parseInt(querySnapshot.docs[0].data().amount),
       ];
     });
+  //update beneficier data with new transaction
   firestore()
     .collection('Beneficiers')
     .doc(userid)
@@ -52,6 +54,29 @@ export const addtransaction = async transaction => {
     .then(() => {
       console.log('User updated!');
     });
-
-  console.log(usertransactions);
+  // get current user data
+  const [currentuserId, balance] = await firestore()
+    .collection('Users')
+    // Filter results
+    .where('phone', '==', transaction.from)
+    // Limit results
+    .limit(1)
+    .get()
+    .then(querySnapshot => {
+      return [
+        querySnapshot.docs[0].id,
+        parseInt(querySnapshot.docs[0].data().balance),
+      ];
+    });
+  //update current user with new transaction
+  firestore()
+    .collection('Users')
+    .doc(currentuserId)
+    .update({
+      balance: balance - parseInt(transaction.amount),
+    })
+    .then(() => {
+      console.log('User updated!');
+    });
+  //console.log(usertransactions);
 };

@@ -7,11 +7,15 @@ import {
   TouchableWithoutFeedback,
   Pressable,
 } from 'react-native';
+import MyAppText from './MyAppText';
+
 import React, {useState} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
 
 const CustomTextInput = props => {
   const [Pressed, setPressed] = useState(false);
   const [showPassword, setshowPassword] = useState(false);
+  const isarabic = useSelector(state => state.language.AR);
   return (
     <TouchableWithoutFeedback>
       <View
@@ -32,13 +36,13 @@ const CustomTextInput = props => {
           />
         )}
         <View style={[styles.forminputtext]}>
-          <Text
+          <MyAppText
             style={[
               styles.inputtext,
               Pressed ? {color: '#007236'} : {color: props.textcolor},
             ]}>
             {props.text}
-          </Text>
+          </MyAppText>
           <TextInput
             value={props.value}
             secureTextEntry={props.secureTextEntry && !showPassword}
@@ -47,6 +51,7 @@ const CustomTextInput = props => {
               fontSize: 14,
               fontWeight: '700',
               color: Pressed ? 'black' : props.textcolor,
+              textAlign: isarabic ? 'left' : 'right',
             }}
             onFocus={() => setPressed(true)}
             onBlur={() => setPressed(false)}
@@ -54,7 +59,8 @@ const CustomTextInput = props => {
               props.settext(text);
             }}></TextInput>
         </View>
-        {props.text.toLowerCase().includes('password') && (
+        {(props.text.toLowerCase().includes('password') ||
+          props.text.includes('كلمة السر')) && (
           <Pressable
             style={styles.passwordicon}
             onPress={() => {

@@ -1,11 +1,21 @@
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
+import MyAppText from '../components/MyAppText';
+
 import React, {useState} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
 import SignUpHeader from '../components/SignUpHeader';
 import DropDownComponent from '../components/DropDownComponent';
 import CustomTextInput from '../components/CustomTextInput';
 import * as ImagePicker from 'react-native-image-picker';
+import {addbeneficier} from '../firebase/FirestoreDB';
+import {fetchusers} from '../redux/beneficiersSlice';
+import i18n from '../translation/I18Config';
 
 const AddBeneficiare = ({navigation, route}) => {
+  const isarabic = useSelector(state => state.language.AR);
+  i18n.locale = useSelector(state => state.language.locale);
+  const dispatch = useDispatch();
+  const phonenumber = useSelector(state => state.user.phone);
   const [firstname, setfirstname] = useState('');
   const [lastname, setlastname] = useState('');
   const [mobilenum, setmobilenum] = useState('');
@@ -44,14 +54,19 @@ const AddBeneficiare = ({navigation, route}) => {
     });
   };
   const addbenef = () => {
-    route.params.adduser({
+    const benficierData = {
       name: firstname + ' ' + lastname,
       image: imagePath,
       phone: mobilenum,
-      amount: '10000',
+      amount: 0,
       accountnum: accountnum,
       transactions: [],
-    });
+    };
+    addbeneficier({relateduserphone: phonenumber, ...benficierData}).then(
+      () => {
+        dispatch(fetchusers(phonenumber));
+      },
+    );
   };
   const bankbranches = [{label: '043 - Water Way Mall', value: '1'}];
   return (
@@ -88,7 +103,7 @@ const AddBeneficiare = ({navigation, route}) => {
         }}>
         <View style={{width: 175}}>
           <CustomTextInput
-            text="First name"
+            text={i18n.t('FirstName')}
             background="white"
             textcolor="black"
             settext={setfirstname}
@@ -97,7 +112,7 @@ const AddBeneficiare = ({navigation, route}) => {
         </View>
         <View style={{width: 175}}>
           <CustomTextInput
-            text="Last name"
+            text={i18n.t('LastName')}
             background="white"
             textcolor="black"
             settext={setlastname}
@@ -112,10 +127,10 @@ const AddBeneficiare = ({navigation, route}) => {
           paddingHorizontal: 15,
           marginTop: 15,
         }}>
-        <DropDownComponent data={bankbranches} label="Bank Branch" />
+        <DropDownComponent data={bankbranches} label={i18n.t('BankBranch')} />
         <View style={{width: 370}}>
           <CustomTextInput
-            text="Account Number"
+            text={i18n.t('AccountNum')}
             background="white"
             textcolor="black"
             settext={setaccountnum}
@@ -124,7 +139,7 @@ const AddBeneficiare = ({navigation, route}) => {
         </View>
         <View style={{width: 370}}>
           <CustomTextInput
-            text="Phone Number"
+            text={i18n.t('TelephoneNum')}
             background="white"
             textcolor="black"
             settext={setmobilenum}
@@ -133,7 +148,7 @@ const AddBeneficiare = ({navigation, route}) => {
         </View>
         <View style={{width: 370}}>
           <CustomTextInput
-            text="Email"
+            text={i18n.t('Email')}
             background="white"
             textcolor="black"
             settext={setemail}
@@ -152,7 +167,9 @@ const AddBeneficiare = ({navigation, route}) => {
                 previousScreen: route.name,
               });
             }}>
-            <Text style={styles.buttontext}>Add Beneficier</Text>
+            <MyAppText style={styles.buttontext}>
+              {i18n.t('AddBeneficier')}
+            </MyAppText>
           </TouchableOpacity>
         </View>
       </View>
