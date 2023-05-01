@@ -21,6 +21,7 @@ import {logout} from '../redux/userSlice';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {useLayoutEffect} from 'react';
 import i18n from '../translation/I18Config';
+import {removeNavState} from '../redux/navigationSlice';
 
 const CustomDrawer = props => {
   const [enabled, setenabled] = useState(false);
@@ -73,6 +74,7 @@ const CustomDrawer = props => {
         <TouchableOpacity
           onPress={() => {
             dispatch(logout());
+            dispatch(removeNavState());
             props.navigation.navigate('Login');
           }}>
           <View

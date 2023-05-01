@@ -10,18 +10,27 @@ import KeyboardDismiss from './src/components/KeyboardDismiss';
 
 import SplashScreen from './src/screens/SplashScreen';
 import Dummy from './src/screens/Dummy';
+import {QueryClient, QueryClientProvider} from 'react-query';
+
+const queryclient = new QueryClient();
 
 const App = () => {
   const initialState = useSelector(state => state.navigation.navigationState);
-  //return <Dummy />;
+  /*return (
+    <QueryClientProvider client={queryclient}>
+      <Dummy />
+    </QueryClientProvider>
+  );*/
   return (
-    <SplashScreen>
-      <KeyboardDismiss>
-        <NavigationContainer initialState={initialState}>
-          <AuthStack />
-        </NavigationContainer>
-      </KeyboardDismiss>
-    </SplashScreen>
+    <QueryClientProvider client={queryclient}>
+      <SplashScreen>
+        <KeyboardDismiss>
+          <NavigationContainer initialState={initialState}>
+            <AuthStack />
+          </NavigationContainer>
+        </KeyboardDismiss>
+      </SplashScreen>
+    </QueryClientProvider>
   );
 };
 

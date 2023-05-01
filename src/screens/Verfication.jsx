@@ -98,7 +98,8 @@ const Verification = props => {
             onPress={async () => {
               //const isverified = await handleVerifyCode(verificationId, OTP);
               //console.log(isverified);
-              if (true) {
+              const otpIsValid = OTP && OTP.length == 6;
+              if (otpIsValid) {
                 if (prevscreen == 'Signup')
                   props.navigation.navigate('SetPassword', {
                     mobilenum: mobilenum,
@@ -116,7 +117,7 @@ const Verification = props => {
         username={props.route.params.name}
         text={
           prevscreen == 'Transfer'
-            ? i18n.t('TransferSuccessful', {name: props.route.params.name})
+            ? i18n.t('TransferSuccesful', {name: props.route.params.name})
             : i18n.t('AddedSuccessful', {name: props.route.params.name})
         }
       />

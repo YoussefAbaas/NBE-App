@@ -17,6 +17,8 @@ import {registerPhoneNumber} from '../firebase/Auth';
 import {useSelector, useDispatch} from 'react-redux';
 import {login} from '../redux/userSlice';
 import i18n from '../translation/I18Config';
+import {acc} from 'react-native-reanimated';
+import {useAddUserData} from '../firebase/FirebaseQuery';
 
 const SetPassword = props => {
   const isarabic = useSelector(state => state.language.AR);
@@ -32,7 +34,7 @@ const SetPassword = props => {
     number: /[0-9]/.test(password),
     specialcharacter: /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test(password),
   };
-
+  const mutation = useAddUserData();
   return (
     <View style={styles.container}>
       <SignUpHeader navigation={props.navigation} />
@@ -81,8 +83,14 @@ const SetPassword = props => {
                 password != null &&
                 confirmpassword != null
               ) {
-                const accountnum = await registerPhoneNumber(mobile, password);
-                if (accountnum) {
+                const uid = await registerPhoneNumber(mobile, password);
+                const accountnum = Math.floor(Math.random() * 1e16);
+                mutation.mutateAsync({
+                  userId: uid,
+                  phoneNumber: mobile,
+                  accountnum: accountnum,
+                });
+                if (uid) {
                   dispatch(
                     login({
                       phone: mobile,

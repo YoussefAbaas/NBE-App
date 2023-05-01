@@ -23,7 +23,7 @@ export default {
   NotReceiveCode: "Didn't receive the code?",
   RequestNewCode: 'Request new one in 00:',
   TransferSuccesful: 'Transfer to %{name} was successful',
-  AddedSuccessful: ' ${name} was successfully added to your beneficiares list',
+  AddedSuccessful: ' %{name} was successfully added to your beneficiares list',
   SetPassword: 'Set your password',
   EnterPassword: 'Enter a strong password for your online banking account',
   ConfirmPassword: 'Confirm Password',

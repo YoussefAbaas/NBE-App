@@ -45,15 +45,18 @@ const MobileEntry = props => {
         <View style={styles.button}>
           <TouchableOpacity
             onPress={async () => {
-              const verificationId = await handleSendCode(mobile);
+              //const verificationId = await handleSendCode(mobile);
               //console.log(verificationId);
               // if (verificationId != null) {
-              if (true) {
+              const mobileIsValid = mobile && mobile.length == 11;
+              if (mobileIsValid) {
                 props.navigation.navigate('Verification', {
                   mobilenum: mobile,
                   previousScreen: props.route.name,
-                  verificationId: verificationId,
+                  //verificationId: verificationId,
                 });
+              } else {
+                alert('Not valid Number');
               }
             }}>
             <MyAppText style={styles.buttontext}>{i18n.t('next')}</MyAppText>

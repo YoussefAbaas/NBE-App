@@ -10,11 +10,12 @@ import * as ImagePicker from 'react-native-image-picker';
 import {addbeneficier} from '../firebase/FirestoreDB';
 import {fetchusers} from '../redux/beneficiersSlice';
 import i18n from '../translation/I18Config';
+import {useQueryClient} from 'react-query';
+import {useAddBeneficierData} from '../firebase/FirebaseQuery';
 
 const AddBeneficiare = ({navigation, route}) => {
   const isarabic = useSelector(state => state.language.AR);
   i18n.locale = useSelector(state => state.language.locale);
-  const dispatch = useDispatch();
   const phonenumber = useSelector(state => state.user.phone);
   const [firstname, setfirstname] = useState('');
   const [lastname, setlastname] = useState('');
@@ -53,6 +54,7 @@ const AddBeneficiare = ({navigation, route}) => {
       }
     });
   };
+  const mutation = useAddBeneficierData();
   const addbenef = () => {
     const benficierData = {
       name: firstname + ' ' + lastname,
@@ -62,11 +64,22 @@ const AddBeneficiare = ({navigation, route}) => {
       accountnum: accountnum,
       transactions: [],
     };
-    addbeneficier({relateduserphone: phonenumber, ...benficierData}).then(
-      () => {
-        dispatch(fetchusers(phonenumber));
-      },
-    );
+    const mobileIsValid = mobilenum && mobilenum.length == 11;
+    const emailIsValid = email && email.includes('@');
+    const accountnumberIsvalid = accountnum && accountnum.length == 16;
+    if (
+      firstname &&
+      lastname &&
+      accountnumberIsvalid &&
+      mobileIsValid &&
+      emailIsValid &&
+      imagePath
+    ) {
+      mutation.mutateAsync({relateduserphone: phonenumber, ...benficierData});
+      return true;
+    } else {
+      return false;
+    }
   };
   const bankbranches = [{label: '043 - Water Way Mall', value: '1'}];
   return (
@@ -160,12 +173,14 @@ const AddBeneficiare = ({navigation, route}) => {
         <View style={styles.button}>
           <TouchableOpacity
             onPress={() => {
-              addbenef();
-              navigation.navigate('OTP', {
-                mobilenum: mobilenum,
-                name: firstname + ' ' + lastname,
-                previousScreen: route.name,
-              });
+              const result = addbenef();
+              result
+                ? navigation.navigate('OTP', {
+                    mobilenum: mobilenum,
+                    name: firstname + ' ' + lastname,
+                    previousScreen: route.name,
+                  })
+                : alert('Not valid data');
             }}>
             <MyAppText style={styles.buttontext}>
               {i18n.t('AddBeneficier')}

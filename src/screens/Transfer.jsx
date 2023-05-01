@@ -11,6 +11,11 @@ import {addtransaction} from '../firebase/FirestoreDB';
 import {useRoute} from '@react-navigation/native';
 import {fetchusers} from '../redux/beneficiersSlice';
 import {fetchuserdata} from '../redux/userSlice';
+import {
+  useAddTransactionData,
+  useBeneficiersData,
+} from '../firebase/FirebaseQuery';
+import {useQueryClient} from 'react-query';
 
 const Transfer = ({navigation}) => {
   const isarabic = useSelector(state => state.language.AR);
@@ -36,6 +41,7 @@ const Transfer = ({navigation}) => {
 
   const username = route.params?.name;
   const mobilenum = useSelector(state => state.user.phone);
+  const mutation = useAddTransactionData();
   const dispatch = useDispatch();
   const formatdate = () => {
     var today = new Date();
@@ -87,21 +93,25 @@ const Transfer = ({navigation}) => {
           <TouchableOpacity
             onPress={async () => {
               //console.log(username);
-              await addtransaction({
-                from: usermobileNum,
-                id: Math.random(),
-                username: username,
-                name: reason,
-                amount: amount,
-                date: formatdate(),
-              });
-              dispatch(fetchuserdata(mobilenum));
-              dispatch(fetchusers(mobilenum));
-              navigation.navigate('OTP', {
-                mobilenum: mobilenum,
-                name: username,
-                previousScreen: route.name,
-              });
+              mutation
+                .mutateAsync({
+                  from: usermobileNum,
+                  id: Math.random(),
+                  username: username,
+                  name: reason,
+                  amount: amount,
+                  date: formatdate(),
+                })
+                .then(() => {
+                  dispatch(fetchuserdata(mobilenum));
+                  //dispatch(fetchusers(mobilenum));
+                  //queryclient.invalidateQueries('Beneficiers');
+                  navigation.navigate('OTP', {
+                    mobilenum: mobilenum,
+                    name: username,
+                    previousScreen: route.name,
+                  });
+                });
             }}>
             <MyAppText style={styles.buttontext}>Transfer</MyAppText>
           </TouchableOpacity>

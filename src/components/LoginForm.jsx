@@ -7,6 +7,7 @@ import {
   Touchable,
   TouchableWithoutFeedback,
   Pressable,
+  Alert,
 } from 'react-native';
 import MyAppText from './MyAppText';
 
@@ -16,10 +17,15 @@ import CustomTextInput from './CustomTextInput';
 import {signIn} from '../firebase/Auth';
 import {login} from '../redux/userSlice';
 import i18n from '../translation/I18Config';
+import {useUserData} from '../firebase/FirebaseQuery';
+import {useQueryClient} from 'react-query';
 
 const LoginForm = props => {
   const [email, setemail] = useState('');
   const [password, setpassword] = useState('');
+  const [userId, setuserId] = useState('');
+  const {data: logindata, isLoading, isError} = useUserData(userId);
+  const queryclient = useQueryClient();
   const dispatch = useDispatch();
   const isarabic = useSelector(state => state.language.AR);
   const [Remember, setRemember] = useState(false);
@@ -77,10 +83,17 @@ const LoginForm = props => {
       <View style={styles.loginbuttons}>
         <TouchableWithoutFeedback
           onPress={async () => {
-            const [result, data] = await signIn(email, password);
-            if (result) {
-              dispatch(login(data));
-              props.navigation.navigate('Home');
+            if (email != '' && password != '') {
+              const uid = await signIn(email, password);
+              setuserId(uid);
+              queryclient.fetchQuery('User');
+              console.log(logindata);
+              if (logindata) {
+                dispatch(login(logindata));
+                props.navigation.navigate('Home');
+              }
+            } else {
+              alert('Not valid email or password');
             }
           }}>
           <View style={styles.loginButton}>

@@ -11,10 +11,13 @@ export const navigationSlice = createSlice({
     save: (state, actions) => {
       state.navigationState = actions.payload;
     },
+    removeNavState: state => {
+      state.navigationState = null;
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const {save} = navigationSlice.actions;
+export const {save, removeNavState} = navigationSlice.actions;
 
 export default navigationSlice.reducer;

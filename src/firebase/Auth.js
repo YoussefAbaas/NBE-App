@@ -46,15 +46,7 @@ async function registerPhoneNumber(phoneNumber, password) {
       phoneNumber + '@nbe.com',
       password,
     );
-    //userCredential.user.updatePhoneNumber(phoneNumber);
-    var accountnum = Math.floor(Math.random() * 1e16);
-    firestore()
-      .collection('Users')
-      .doc(userCredential.user.uid)
-      .set({phone: phoneNumber, accountnum: accountnum, balance: 100000})
-      .then(() => {
-        console.log('added');
-      });
+    return userCredential.user.uid;
   } catch (error) {
     alert('error in registration');
     console.log(error);
@@ -68,17 +60,11 @@ async function signIn(phoneNumber, password) {
       phoneNumber + '@nbe.com',
       password,
     );
-    var user = await firestore()
-      .collection('Users')
-      .doc(userCredential.user.uid)
-      .get();
-    console.log(user.data());
-    result = true;
+    return userCredential.user.uid;
   } catch (error) {
     alert('error in user name or password');
     result = false;
   }
-  return [result, user.data()];
 }
 
 export {signIn, registerPhoneNumber, handleSendCode, handleVerifyCode};
