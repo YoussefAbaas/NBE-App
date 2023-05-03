@@ -26,14 +26,14 @@ const Balance = () => {
     <View
       style={{
         backgroundColor: '#007236',
-        width: 350,
+        width: '90%',
         height: 130,
         borderRadius: 15,
         marginLeft: 20,
         marginVertical: 20,
       }}>
       <ImageBackground
-        style={{width: 350, height: 130, borderRadius: 15}}
+        style={{width: '100%', height: 130, borderRadius: 15}}
         source={require('../assets/images/balancebg.png')}>
         <View style={styles.balanceheader}>
           <MyAppText style={styles.balancetitle}>{i18n.t('Balance')}</MyAppText>

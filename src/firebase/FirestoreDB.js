@@ -6,7 +6,7 @@ export const addbeneficier = async beneficier => {
   await reference.putFile(beneficier.image.uri);
   const url = await reference.getDownloadURL();
   console.log(url);
-  firestore()
+  await firestore()
     .collection('Beneficiers')
     .add({...beneficier, image: {uri: url}})
     .then(() => {

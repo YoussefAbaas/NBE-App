@@ -16,7 +16,7 @@ const queryclient = new QueryClient();
 
 const App = () => {
   const initialState = useSelector(state => state.navigation.navigationState);
-  /*return (
+  /* return (
     <QueryClientProvider client={queryclient}>
       <Dummy />
     </QueryClientProvider>

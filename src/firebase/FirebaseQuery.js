@@ -1,7 +1,7 @@
 import {useQuery, useQueryClient} from 'react-query';
 import {useMutation} from 'react-query';
 import firestore from '@react-native-firebase/firestore';
-import {addtransaction} from './FirestoreDB';
+import {addbeneficier, addtransaction} from './FirestoreDB';
 
 export function useBeneficiersData(mobilenumber) {
   const queryKey = ['Beneficiers', mobilenumber];
@@ -25,7 +25,7 @@ export function useAddBeneficierData() {
   const queryclient = useQueryClient();
   const mutation = useMutation(
     data => {
-      return firestore().collection('Beneficiers').add(data);
+      return addbeneficier(data);
     },
     {
       onSettled: () => {
